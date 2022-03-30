@@ -4,8 +4,7 @@ class SessionsController < ApplicationController
   def create
     if (user = User.find_or_create_from_auth_hash(auth_hash))
       log_in user
-      # TODO: taskの一覧ページにリダイレクトする
-      redirect_to root_path
+      redirect_to repetitive_tasks_path
     else
       redirect_to root_path
     end
