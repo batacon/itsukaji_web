@@ -1,2 +1,4 @@
-<h1>RepetitiveTasks#index</h1>
-<p>Find me in app/views/repetitive_tasks/index.html.erb</p>
+<div class="space-y-4">
+  <%= render @repetitive_tasks %>
+</div>
+<%= link_to '＋', new_repetitive_task_path, class: 'absolute right-8 bottom-8 text-white p-6 font-bold bg-red-500 rounded-full' %>

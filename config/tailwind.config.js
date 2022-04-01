@@ -13,6 +13,7 @@ module.exports = {
       },
       colors: {
         primary: '#50ABD3',
+        'card-color': '#009B6B',
       },
     },
   },
