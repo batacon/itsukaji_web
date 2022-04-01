@@ -11,15 +11,9 @@
     <%= javascript_importmap_tags %>
   </head>
   <body class="h-screen">
-    <header>
-      <% if current_user %>
-        <%= image_tag current_user.image %>
-        <%= current_user.name %>さん
-        <%= link_to "ログアウト", log_out_path %>
-      <% else %>
-        ゲストさん
-        <%= button_to "Googleでログイン", "/auth/google_oauth2", data: { turbo: false } %>
-      <% end %>
+    <header class="flex h-12 p-3 bg-primary items-center justify-between">
+      <%= image_tag 'header_logo.png' %>
+      <%= link_to "ログアウト", log_out_path, class: 'text-white' %>
     </header>
     <%= yield %>
   </body>
