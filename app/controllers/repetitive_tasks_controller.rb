@@ -24,6 +24,7 @@ class RepetitiveTasksController < ApplicationController
   end
 
   def edit
+    @repetitive_task = RepetitiveTask.find(params[:id])
   end
 
   def update

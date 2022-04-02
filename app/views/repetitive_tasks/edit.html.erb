@@ -1,2 +1,15 @@
-<h1>RepetitiveTasks#edit</h1>
-<p>Find me in app/views/repetitive_tasks/edit.html.erb</p>
+<%= form_with(model: @repetitive_task) do |form| %>
+  <div>
+    <%= form.label 'タスク名' %>
+    <%= form.text_field :name, maxlength: 30 %>
+  </div>
+
+  <div>
+    <%= form.label '間隔(日)' %>
+    <%= form.number_field :interval_days, min: 0, max: 999, step: 1 %>
+  </div>
+
+  <div>
+    <%= form.submit '保存する', class: 'float-right mt-5 border rounded p-4' %>
+  </div>
+<% end %>
