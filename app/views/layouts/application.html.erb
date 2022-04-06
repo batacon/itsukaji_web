@@ -11,10 +11,7 @@
     <%= javascript_importmap_tags %>
   </head>
   <body class="h-screen">
-    <header class="flex h-12 p-3 bg-primary items-center justify-between">
-      <%= image_tag 'header_logo.png' %>
-      <%= link_to "ログアウト", log_out_path, class: 'text-white' %>
-    </header>
+    <%= render(HeaderComponent.new) %>
     <div class="py-8 px-4">
       <%= yield %>
     </div>

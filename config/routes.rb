@@ -6,5 +6,7 @@ Rails.application.routes.draw do
   get 'log_out', to: 'sessions#destroy', as: 'log_out'
 
   resources :sessions, only: %i[create destroy]
-  resources :repetitive_tasks
+  resources :repetitive_tasks do
+    resources :repetitive_task_logs, only: %i[create destroy]
+  end
 end

@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   before_action :check_logged_in
 
   def check_logged_in
-    return if current_user
+    return if logged_in?
 
     redirect_to root_path
   end

@@ -1,0 +1,11 @@
+<div class="flex items-center">
+  <%= render(DoneButtonComponent.new(repetitive_task: @repetitive_task)) %>
+  <%= link_to edit_repetitive_task_path(@repetitive_task), class: 'block flex-1 bg-card-color p-2 rounded' do %>
+    <h3>
+      <%= @repetitive_task.name %>
+    </h3>
+    <div>
+      <%= @repetitive_task.interval_days %>日ごと
+    </div>
+  <% end %>
+</div>

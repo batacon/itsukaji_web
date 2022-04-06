@@ -10,9 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_03_30_174354) do
+ActiveRecord::Schema[7.0].define(version: 2022_04_05_135338) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "repetitive_task_logs", force: :cascade do |t|
+    t.date "date", null: false
+    t.bigint "repetitive_task_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["repetitive_task_id"], name: "index_repetitive_task_logs_on_repetitive_task_id"
+  end
 
   create_table "repetitive_tasks", force: :cascade do |t|
     t.string "name", null: false
@@ -31,5 +39,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_30_174354) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "repetitive_task_logs", "repetitive_tasks"
   add_foreign_key "repetitive_tasks", "users"
 end

@@ -1,0 +1,12 @@
+<%= turbo_frame_tag @repetitive_task do %>
+  <%=
+    button_to 'done', done_or_undone_path,
+      class: "mr-2 #{bg_color}",
+      method: http_method
+  %>
+<% end %>
+<%# if @repetitive_task.done_today? %>
+  <%# button_to 'done', undone_path, class: 'mr-2 bg-red-600', method: :delete %>
+<%# else %>
+  <%#= button_to 'done', done_path, class: 'mr-2 bg-red-200', method: :post %>
+<%# end %>
