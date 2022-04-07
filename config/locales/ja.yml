@@ -2,3 +2,6 @@ ja:
   time:
     formats:
       default: "%Y/%m/%d %H:%M:%S"
+  date:
+    formats:
+      default: "%Y年%m月%d日"

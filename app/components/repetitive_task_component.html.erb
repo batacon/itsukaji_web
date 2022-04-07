@@ -1,11 +1,25 @@
 <div class="flex items-center">
   <%= render(DoneButtonComponent.new(repetitive_task: @repetitive_task)) %>
-  <%= link_to edit_repetitive_task_path(@repetitive_task), class: 'block flex-1 bg-card-color p-2 rounded' do %>
-    <h3>
+
+  <%= link_to edit_repetitive_task_path(@repetitive_task), class: 'block flex-1 bg-card-color p-3 rounded' do %>
+    <h3 class="text-lg font-bold">
       <%= @repetitive_task.name %>
     </h3>
-    <div>
-      <%= @repetitive_task.interval_days %>日ごと
+
+    <div class="px-3">
+      <div>
+        <%= @repetitive_task.interval_days %>日に1度やるべし
+      </div>
+
+      <% unless @repetitive_task.never_done? %>
+      <div>
+        前回やったのは<%= l @repetitive_task.last_done_at %>
+      </div>
+      <% end %>
+
+      <div>
+        次やるべき日まで あと<%= @repetitive_task.days_until_next %>日
+      </div>
     </div>
   <% end %>
 </div>

@@ -7,16 +7,20 @@ class DoneButtonComponent < ViewComponent::Base
     @repetitive_task = repetitive_task
   end
 
-  def http_method
-    @repetitive_task.done_today? ? :delete : :post
+  def label
+    done_today? ? 'やった！' : 'やった？'
   end
 
-  def bg_color
-    @repetitive_task.done_today? ? 'bg-red-600' : 'bg-red-200'
+  def http_method
+    done_today? ? :delete : :post
   end
 
   def done_or_undone_path
-    @repetitive_task.done_today? ? undone_path : done_path
+    done_today? ? undone_path : done_path
+  end
+
+  def done_today?
+    @repetitive_task.done_today?
   end
 
   private

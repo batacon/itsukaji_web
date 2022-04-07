@@ -1,6 +1,6 @@
 class RepetitiveTasksController < ApplicationController
   def index
-    @repetitive_tasks = RepetitiveTask.where(user_id: current_user.id)
+    @repetitive_tasks = RepetitiveTask.where(user_id: current_user.id).order(:days_until_next)
   end
 
   def show
@@ -12,15 +12,8 @@ class RepetitiveTasksController < ApplicationController
 
   def create
     @repetitive_task = RepetitiveTask.new(repetitive_task_params)
-
     @repetitive_task.save!
     redirect_to :repetitive_tasks
-
-    # if @repetitive_task.save
-    #   redirect_to :repetitive_tasks
-    # else
-    #   render :new
-    # end
   end
 
   def edit
@@ -28,13 +21,9 @@ class RepetitiveTasksController < ApplicationController
   end
 
   def update
-    # @article = Article.find(params[:id])
-
-    # if @article.update(article_params)
-    #   redirect_to @article
-    # else
-    #   render :edit
-    # end
+    @repetitive_task = RepetitiveTask.find(params[:id])
+    @repetitive_task.update!(repetitive_task_params)
+    redirect_to :repetitive_tasks
   end
 
   private
