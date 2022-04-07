@@ -1,7 +1,7 @@
 <div class="flex items-center">
   <%= render(DoneButtonComponent.new(repetitive_task: @repetitive_task)) %>
 
-  <%= link_to edit_repetitive_task_path(@repetitive_task), class: 'block flex-1 bg-card-color p-3 rounded' do %>
+  <%= link_to edit_repetitive_task_path(@repetitive_task), class: "block flex-1 #{@repetitive_task.should_do_today? ? 'bg-red-500' : 'bg-card-color'} p-3 rounded" do %>
     <h3 class="text-lg font-bold">
       <%= @repetitive_task.name %>
     </h3>

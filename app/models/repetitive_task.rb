@@ -10,6 +10,10 @@ class RepetitiveTask < ApplicationRecord
     logs.where(date: Date.today).exists?
   end
 
+  def should_do_today?
+    days_until_next.zero?
+  end
+
   def today_log
     logs.find_by(date: Date.today)
   end
@@ -31,6 +35,7 @@ class RepetitiveTask < ApplicationRecord
   def number_of_days_until_next
     return 0 if never_done?
 
-    (interval_days - days_since_last_done).to_i
+    number_of_days = (interval_days - days_since_last_done).to_i
+    number_of_days < 0 ? 0 : number_of_days
   end
 end
