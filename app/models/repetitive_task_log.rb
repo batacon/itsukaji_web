@@ -5,6 +5,10 @@ class RepetitiveTaskLog < ApplicationRecord
 
   after_save :update_days_until_next
 
+  def how_many_days_ago
+    (Date.today - self.date).to_i
+  end
+
   private
 
   def update_days_until_next

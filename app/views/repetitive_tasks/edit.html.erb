@@ -1,3 +1,4 @@
+<div>
 <%= form_with(model: @repetitive_task) do |form| %>
   <div class="mb-4">
     <%= form.label 'タスク名' %>
@@ -9,7 +10,13 @@
     <%= form.number_field :interval_days, min: 0, max: 999, step: 1 %>
   </div>
 
-  <div>
-    <%= form.submit '保存する', class: 'float-right mt-5 border rounded p-4' %>
+  <div class="flex flex-row-reverse">
+    <%= form.submit '保存する', class: 'mt-5 border rounded p-4' %>
   </div>
 <% end %>
+</div>
+
+<h3 class="text-lg font-bold">やったログ</h3>
+<ul>
+  <%= render(RepetitiveTaskLogComponent.with_collection(@repetitive_task.logs)) %>
+</ul>

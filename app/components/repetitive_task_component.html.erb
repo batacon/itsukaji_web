@@ -13,7 +13,7 @@
 
       <% unless @repetitive_task.never_done? %>
       <div>
-        前回やったのは<%= l @repetitive_task.last_done_at %>
+        前回は<%= l @repetitive_task.last_done_at %>
       </div>
       <% end %>
 
