@@ -13,8 +13,10 @@ module.exports = {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
       },
       colors: {
-        primary: '#50ABD3',
-        'card-color': '#009B6B',
+        primary: '#50abd3',
+        'todo-color': '#c62918',
+        'card-primary-color': '#edf7fa',
+        'card-todo-color': '#f8eae8',
       },
     },
   },

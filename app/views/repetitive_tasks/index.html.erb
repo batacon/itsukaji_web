@@ -2,4 +2,5 @@
   <%= render(RepetitiveTaskComponent.with_collection(@repetitive_tasks)) %>
 </div>
 
-<%= link_to '＋', new_repetitive_task_path, class: 'absolute right-8 bottom-8 text-white p-6 font-bold bg-red-500 rounded-full' %>
+<%= link_to image_tag('rounded_plus'), new_repetitive_task_path,
+      class: 'absolute right-8 bottom-8' %>

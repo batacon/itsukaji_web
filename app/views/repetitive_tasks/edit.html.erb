@@ -1,22 +1,33 @@
-<div>
-<%= form_with(model: @repetitive_task) do |form| %>
-  <div class="mb-4">
-    <%= form.label 'タスク名' %>
-    <%= form.text_field :name, maxlength: 30 %>
-  </div>
 
-  <div>
-    <%= form.label '間隔(日)' %>
-    <%= form.number_field :interval_days, min: 0, max: 999, step: 1 %>
-  </div>
-
-  <div class="flex flex-row-reverse">
-    <%= form.submit '保存する', class: 'mt-5 border rounded p-4' %>
-  </div>
-<% end %>
+<div class="flex flex-row-reverse">
+  <%= button_to '×', repetitive_task_path(@repetitive_task),
+        method: :delete,
+        form: { data: { turbo_confirm: "タスクを削除しますか？" } },
+        class: 'border text-red-500 rounded p-3'
+  %>
 </div>
 
-<h3 class="text-lg font-bold">やったログ</h3>
-<ul>
-  <%= render(RepetitiveTaskLogComponent.with_collection(@repetitive_task.logs)) %>
-</ul>
+<div>
+  <%= form_with(model: @repetitive_task) do |form| %>
+    <div class="mb-4">
+      <%= form.label 'タスク名' %>
+      <%= form.text_field :name, maxlength: 30 %>
+    </div>
+
+    <div>
+      <%= form.label '間隔(日)' %>
+      <%= form.number_field :interval_days, min: 0, max: 999, step: 1 %>
+    </div>
+
+    <div class="flex flex-row-reverse">
+      <%= form.submit '保存する', class: 'mt-5 border rounded p-4' %>
+    </div>
+  <% end %>
+</div>
+
+<section class="mt-6">
+  <h3 class="text-lg font-bold">やったログ</h3>
+  <ul>
+    <%= render(RepetitiveTaskLogComponent.with_collection(@repetitive_task.logs)) %>
+  </ul>
+</section>

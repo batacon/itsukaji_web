@@ -1,0 +1,30 @@
+<%= link_to edit_path,
+      class: "
+        block flex-1 p-3 rounded-md border border-solid
+        #{should_do_today? ?
+          'bg-card-todo-color border-todo-color text-todo-color' :
+          'bg-card-primary-color border-primary text-primary'}
+      " do
+%>
+  <div class="mb-1 text-xs">
+    every <%= interval_days_number %> <%= day_or_days %>
+  </div>
+
+  <h3 class="mb-2 text-xl font-bold">
+    <%= task_name %>
+  </h3>
+
+  <div class="px-10">
+    <% if done_at_least_once %>
+      <div class="flex">
+        <%= image_tag calendar_check_icon, class: 'mr-4' %>
+        前回 <%= last_done_at %>
+      </div>
+    <% end %>
+
+    <div class="flex">
+      <%= image_tag bell_icon, class: 'mr-4' %>
+      あと <%= days_until_next %>日
+    </div>
+  </div>
+<% end %>

@@ -1,11 +1,7 @@
 <%= turbo_frame_tag @repetitive_task do %>
   <%=
-    button_to label, done_or_undone_path,
-      class: "
-        #{done_today? ? 'bg-red-600' : 'bg-red-200'}
-        #{done_today? ? 'text-white' : 'text-black'}
-        mr-2 rounded-full p-3
-      ",
+    button_to image_tag(done_button_image), done_or_undone_path,
+      class: "mr-2",
       method: http_method
   %>
 <% end %>
