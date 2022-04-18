@@ -9,12 +9,8 @@ class TaskCardComponent < ViewComponent::Base
     edit_repetitive_task_path(@repetitive_task)
   end
 
-  def interval_days_number
-    @repetitive_task.interval_days
-  end
-
-  def day_or_days
-    interval_days_number > 1 ? 'days' : 'day'
+  def every_interval_days
+    @repetitive_task.interval_days > 1 ?  "every #{@repetitive_task.interval_days} days" : 'every day'
   end
 
   def task_name

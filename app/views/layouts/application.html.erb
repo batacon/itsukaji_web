@@ -10,9 +10,9 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
-  <body class="h-screen">
+  <body>
     <%= render(HeaderComponent.new) %>
-    <div class="max-w-md mx-auto py-8 px-4">
+    <div class="max-w-md mx-auto pt-8 px-4 pb-24">
       <%= yield %>
     </div>
   </body>
