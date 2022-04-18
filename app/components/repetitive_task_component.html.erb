@@ -1,4 +1,6 @@
-<div class="flex items-center">
-  <%= render(DoneButtonComponent.new(repetitive_task: @repetitive_task)) %>
-  <%= render(TaskCardComponent.new(repetitive_task: @repetitive_task)) %>
-</div>
+<%= turbo_frame_tag @repetitive_task do %>
+  <div class="flex items-center mb-4">
+    <%= render(DoneButtonComponent.new(repetitive_task: @repetitive_task)) %>
+    <%= render(TaskCardComponent.new(repetitive_task: @repetitive_task)) %>
+  </div>
+<% end %>

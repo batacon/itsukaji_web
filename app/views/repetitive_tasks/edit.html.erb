@@ -1,5 +1,6 @@
 
-<div class="flex flex-row-reverse">
+<div class="flex flex-row items-center justify-between mb-5">
+  <%= link_to '一覧へ戻る', repetitive_tasks_path, class: 'border rounded p-3' %>
   <%= button_to '×', repetitive_task_path(@repetitive_task),
         method: :delete,
         form: { data: { turbo_confirm: "タスクを削除しますか？" } },

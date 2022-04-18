@@ -1,4 +1,5 @@
 <%= link_to edit_path,
+      data: { turbo_frame: '_top' },
       class: "
         block flex-1 p-3 rounded-md border border-solid
         #{should_do_today? ?

@@ -9,16 +9,12 @@ class RepetitiveTask < ApplicationRecord
     logs.where(date: Date.today).exists?
   end
 
-  def should_do_today?
-    days_until_next.zero?
-  end
-
   def today_log
     logs.find_by(date: Date.today)
   end
 
   def last_done_at
-    logs.order(date: :desc).first&.date
+    @last_done_at ||= logs.order(date: :desc).first&.date
   end
 
   def never_done?
@@ -36,5 +32,9 @@ class RepetitiveTask < ApplicationRecord
 
     number_of_days = (interval_days - days_since_last_done).to_i
     number_of_days < 0 ? 0 : number_of_days
+  end
+
+  def should_do_today?
+    days_until_next.zero?
   end
 end

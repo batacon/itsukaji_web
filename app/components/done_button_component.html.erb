@@ -1,7 +1,5 @@
-<%= turbo_frame_tag @repetitive_task do %>
-  <%=
-    button_to image_tag(done_button_image), done_or_undone_path,
-      class: "mr-2",
-      method: http_method
-  %>
-<% end %>
+<%=
+  button_to image_tag(done_button_image), done_or_undone_path,
+    class: "mr-2",
+    method: http_method
+%>

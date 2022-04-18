@@ -1,3 +1,7 @@
+<div class="mb-5">
+  <%= link_to '一覧へ戻る', repetitive_tasks_path, class: 'border rounded p-3' %>
+</div>
+
 <%= form_with(model: @repetitive_task) do |form| %>
   <p class="text-xs leading-none text-primary font-bold">(必須 / 20文字まで)</p>
   <div class="mb-10">
