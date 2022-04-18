@@ -1,5 +1,5 @@
 class RepetitiveTasksController < ApplicationController
-  before_action :set_repetitive_task, only: [:show, :edit, :update, :destroy]
+  before_action :set_repetitive_task, only: [:edit, :update, :destroy]
 
   def index
     @repetitive_tasks = RepetitiveTask.where(user_id: current_user.id).sort_by(&:days_until_next)
@@ -10,7 +10,10 @@ class RepetitiveTasksController < ApplicationController
   end
 
   def create
-    RepetitiveTask.create!(repetitive_task_params)
+    ActiveRecord::Base.transaction do
+      task = RepetitiveTask.create!(repetitive_task_params)
+      task.logs.create!(date: log_params[:last_done_at]) if log_params[:last_done_at].present?
+    end
     redirect_to :repetitive_tasks
   end
 
@@ -35,5 +38,9 @@ class RepetitiveTasksController < ApplicationController
 
   def repetitive_task_params
     params.require(:repetitive_task).permit(:name, :interval_days).merge(user_id: current_user.id)
+  end
+
+  def log_params
+    params.require(:repetitive_task).permit(:last_done_at)
   end
 end

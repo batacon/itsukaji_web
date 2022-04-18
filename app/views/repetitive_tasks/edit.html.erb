@@ -9,18 +9,20 @@
 
 <div>
   <%= form_with(model: @repetitive_task) do |form| %>
-    <div class="mb-4">
-      <%= form.label 'タスク名' %>
-      <%= form.text_field :name, maxlength: 30 %>
+    <p class="text-xs leading-none text-primary font-bold">(必須 / 20文字まで)</p>
+    <div class="mb-10">
+      <%= form.label 'タスク名', class: 'mr-2' %>
+      <%= form.text_field :name, maxlength: 20, required: true %>
     </div>
 
-    <div>
-      <%= form.label '間隔(日)' %>
-      <%= form.number_field :interval_days, min: 0, max: 999, step: 1 %>
+    <p class="text-xs leading-none text-primary font-bold">(必須 / 0〜999日まで)</p>
+    <div class="mb-10">
+      <%= form.label '間隔(日)', class: 'mr-2' %>
+      <%= form.number_field :interval_days, min: 1, max: 999, step: 1, required: true %>
     </div>
 
     <div class="flex flex-row-reverse">
-      <%= form.submit '保存する', class: 'mt-5 border rounded p-4' %>
+      <%= form.submit '保存する', class: 'border rounded p-4' %>
     </div>
   <% end %>
 </div>
