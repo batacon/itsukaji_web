@@ -25,7 +25,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_05_135338) do
   create_table "repetitive_tasks", force: :cascade do |t|
     t.string "name", null: false
     t.integer "interval_days", null: false
-    t.integer "days_until_next", default: 0, null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

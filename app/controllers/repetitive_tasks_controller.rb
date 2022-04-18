@@ -2,7 +2,7 @@ class RepetitiveTasksController < ApplicationController
   before_action :set_repetitive_task, only: [:show, :edit, :update, :destroy]
 
   def index
-    @repetitive_tasks = RepetitiveTask.where(user_id: current_user.id).order(:days_until_next)
+    @repetitive_tasks = RepetitiveTask.where(user_id: current_user.id).sort_by(&:days_until_next)
   end
 
   def new
