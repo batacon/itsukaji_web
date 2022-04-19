@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_04_05_135338) do
+ActiveRecord::Schema[7.0].define(version: 2022_04_19_133105) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -25,20 +25,28 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_05_135338) do
   create_table "repetitive_tasks", force: :cascade do |t|
     t.string "name", null: false
     t.integer "interval_days", null: false
-    t.bigint "user_id", null: false
+    t.bigint "user_group_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_repetitive_tasks_on_user_id"
+    t.index ["user_group_id"], name: "index_repetitive_tasks_on_user_group_id"
+  end
+
+  create_table "user_groups", force: :cascade do |t|
+    t.bigint "owner_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
     t.string "name", null: false
     t.string "email", null: false
-    t.string "image", null: false
+    t.bigint "group_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_users_on_group_id"
   end
 
   add_foreign_key "repetitive_task_logs", "repetitive_tasks"
-  add_foreign_key "repetitive_tasks", "users"
+  add_foreign_key "repetitive_tasks", "user_groups"
+  add_foreign_key "users", "user_groups", column: "group_id"
 end

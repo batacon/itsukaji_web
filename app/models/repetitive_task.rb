@@ -1,8 +1,9 @@
 class RepetitiveTask < ApplicationRecord
-  belongs_to :user
+  belongs_to :user_group
+
   has_many :logs, ->{order(date: :desc)}, class_name: 'RepetitiveTaskLog', dependent: :destroy
 
-  validates :name, presence: true, uniqueness: { scope: :user_id }, length: { maximum: 20 }
+  validates :name, presence: true, uniqueness: { scope: :user_group_id }, length: { maximum: 20 }
   validates :interval_days, presence: true, numericality: { greater_than: 0, less_than: 1000 }
 
   def done_today?

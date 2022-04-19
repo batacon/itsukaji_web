@@ -2,7 +2,7 @@ class SessionsController < ApplicationController
   skip_before_action :check_logged_in, only: :create
 
   def create
-    if (user = User.find_or_create_from_auth_hash(auth_hash))
+    if (user = User.find_or_create_from_auth_hash!(auth_hash))
       log_in user
       redirect_to repetitive_tasks_path
     else

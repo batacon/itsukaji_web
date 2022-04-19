@@ -1,11 +1,13 @@
 class User < ApplicationRecord
-  has_many :repetitive_tasks, dependent: :destroy
+  belongs_to :group, class_name: 'UserGroup', foreign_key: 'group_id'
 
   class << self
-    def find_or_create_from_auth_hash(auth_hash)
+    def find_or_create_from_auth_hash!(auth_hash)
       user_params = user_params_from_auth_hash(auth_hash)
-      find_or_create_by(email: user_params[:email]) do |user|
-        user.update(user_params)
+      find_or_create_by!(email: user_params[:email]) do |user|
+        group = UserGroup.create!
+        user.update!(user_params.merge(group_id: group.id))
+        group.update!(owner_id: user.id)
       end
     end
 
@@ -15,7 +17,6 @@ class User < ApplicationRecord
       {
         name: auth_hash.info.name,
         email: auth_hash.info.email,
-        image: auth_hash.info.image,
       }
     end
   end

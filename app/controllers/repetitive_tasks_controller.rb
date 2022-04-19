@@ -2,7 +2,8 @@ class RepetitiveTasksController < ApplicationController
   before_action :set_repetitive_task, only: [:edit, :update, :destroy]
 
   def index
-    @repetitive_tasks = RepetitiveTask.includes(:logs).where(user_id: current_user.id).sort_by(&:days_until_next)
+    @repetitive_tasks = RepetitiveTask.includes(:logs).where(user_group_id: current_user.group.id).sort_by(&:days_until_next)
+
   end
 
   def new
@@ -37,7 +38,7 @@ class RepetitiveTasksController < ApplicationController
   end
 
   def repetitive_task_params
-    params.require(:repetitive_task).permit(:name, :interval_days).merge(user_id: current_user.id)
+    params.require(:repetitive_task).permit(:name, :interval_days).merge(user_group_id: current_user.group.id)
   end
 
   def log_params
