@@ -1,0 +1,26 @@
+<div>
+  <% if current_user.owner? %>
+    <p>招待コード</p>
+    <%= button_to 'コードを変更', user_group_path(@user_group), method: :patch  %>
+    <div class="flex justify-between p-3 border rounded">
+      <%= @invitation_code %>
+      <button id="copy-button">コピー</button>
+    </div>
+  <% end %>
+
+  <ul>
+    <h3>メンバー</h3>
+    <%= render(UserComponent.with_collection(@users)) %>
+  </ul>
+</div>
+
+
+<script>
+() => {
+  document.getElementById('copy-button').addEventListener('click', () => {
+    navigator.clipboard.writeText('<%= @invitation_code %>').then(() => {
+      alert('招待コードをクリップボードにコピーしました。');
+    });
+  });
+}
+</script>

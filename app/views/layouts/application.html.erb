@@ -11,9 +11,10 @@
     <%= javascript_importmap_tags %>
   </head>
   <body>
+    <%# TODO: flashを表示 %>
     <%= render(HeaderComponent.new) %>
-    <div class="max-w-md mx-auto pt-8 px-4 pb-24">
+    <main class="max-w-md mx-auto pt-8 px-4 pb-24">
       <%= yield %>
-    </div>
+    </main>
   </body>
 </html>
