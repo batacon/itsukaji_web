@@ -1,4 +1,10 @@
-<li>
+<li class="flex">
   <%= user_name %>
   <%= label %>
+  <% if me? && !owner? %>
+    <%= button_to 'グループから抜ける', user_path(current_user), method: :delete, form: { data: { turbo_confirm: '本当にグループから抜けますか？' } } %>
+  <% end %>
+  <% if removable_user? %>
+    <%= button_to '共有解除', user_path(@user), method: :delete, form: { data: { turbo_confirm: '本当に共有を解除しますか？'} } %>
+  <% end %>
 </li>

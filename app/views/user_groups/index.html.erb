@@ -16,11 +16,9 @@
 
 
 <script>
-() => {
-  document.getElementById('copy-button').addEventListener('click', () => {
-    navigator.clipboard.writeText('<%= @invitation_code %>').then(() => {
-      alert('招待コードをクリップボードにコピーしました。');
-    });
+document.getElementById('copy-button').addEventListener('click', () => {
+  navigator.clipboard.writeText('<%= @invitation_code %>').then(() => {
+    alert('招待コードをクリップボードにコピーしました。');
   });
-}
+});
 </script>

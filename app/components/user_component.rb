@@ -12,12 +12,24 @@ class UserComponent < ViewComponent::Base
   end
 
   def label
-    if @user.owner? && @user.id == current_user.id
-      '自分(オーナー)'
-    elsif @user.id == current_user.id
-      '自分'
-    elsif @user.owner?
-      'オーナー'
+    if owner? && me?
+      '(自分/オーナー)'
+    elsif me?
+      '(自分)'
+    elsif owner?
+      '(オーナー)'
     end
+  end
+
+  def owner?
+    @user.owner?
+  end
+
+  def me?
+    @user.id == current_user.id
+  end
+
+  def removable_user?
+    current_user.owner? && !owner?
   end
 end

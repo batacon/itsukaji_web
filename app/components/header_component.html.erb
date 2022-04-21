@@ -4,7 +4,7 @@
       <%= image_tag 'header_logo.png', class: 'w-20' %>
     <% end %>
     <% if current_user %>
-      <%= link_to '共有', user_groups_path, class: 'text-white' %>
+      <%= link_to '共有設定', user_groups_path, class: 'text-white' %>
       <%= link_to 'ログアウト', log_out_path, class: 'text-white' %>
     <% end %>
   </div>
