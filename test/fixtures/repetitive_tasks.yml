@@ -3,9 +3,9 @@
 one:
   name: MyString
   interval_days: 1
-  user: one
+  user_group: one
 
 two:
   name: MyString
   interval_days: 1
-  user: two
+  user_group: two
