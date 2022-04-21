@@ -3,24 +3,18 @@ class UsersController < ApplicationController
 
   def create
     if invited?
-      inviter = User.find_by(email: user_params[:inviter_email])
-      if inviter && inviter.group.invitation_code == user_params[:invitation_code]
-        user = User.create!(name: user_params[:name], email: user_params[:email], group_id: inviter.group_id)
-        log_in user
-        redirect_to repetitive_tasks_path
+      inviter = User.find_by(email: invitation_params[:inviter_email])
+      if valid_invitation?(inviter)
+        user = User.create!(user_params.merge(group_id: inviter.group_id))
       else
         flash[:danger] = '招待者のGmailアドレスか招待コードが違います'
         redirect_to root_path
       end
     else
-      ActiveRecord::Base.transaction do
-        new_group = UserGroup.create!
-        user = User.create!(name: user_params[:name], email: user_params[:email], group_id: new_group.id)
-        new_group.update!(owner_id: user.id)
-      end
-      log_in user
-      redirect_to repetitive_tasks_path
+      user = User.create_with_group!(user_params)
     end
+    log_in user
+    redirect_to repetitive_tasks_path
   end
 
   def destroy
@@ -38,10 +32,18 @@ class UsersController < ApplicationController
   private
 
   def invited?
-    !user_params[:invitation_code].nil? && !user_params[:inviter_email].nil?
+    !invitation_params[:invitation_code].nil? && !invitation_params[:inviter_email].nil?
+  end
+
+  def valid_invitation?(inviter)
+    inviter && inviter.group.valid_invitation_code?(invitation_params[:invitation_code])
   end
 
   def user_params
-    params.permit(:name, :email, :invitation_code, :inviter_email)
+    params.permit(:name, :email)
+  end
+
+  def invitation_params
+    params.permit(:invitation_code, :inviter_email)
   end
 end

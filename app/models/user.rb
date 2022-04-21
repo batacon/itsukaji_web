@@ -6,6 +6,17 @@ class User < ApplicationRecord
 
   before_destroy :destroy_group, if: :owner?
 
+  class << self
+    def create_with_group!(user_params)
+      ActiveRecord::Base.transaction do
+        new_group = UserGroup.create!
+        user = create!(user_params.merge(group_id: new_group.id))
+        new_group.update!(owner_id: user.id)
+        user
+      end
+    end
+  end
+
   def owner?
     group.owner.id == self.id
   end
