@@ -10,4 +10,10 @@ class UserGroupsController < ApplicationController
     user_group.regenerate_invitation_code
     redirect_to user_group_path(user_group)
   end
+
+  def destroy
+    user_group = UserGroup.find(params[:id])
+    user_group.destroy!
+    redirect_to root_path
+  end
 end

@@ -10,6 +10,6 @@ Rails.application.routes.draw do
   resources :repetitive_tasks, only: %i[index new create edit update destroy] do
     resources :repetitive_task_logs, only: %i[create destroy]
   end
-  resources :user_groups, only: %i[index update]
+  resources :user_groups, only: %i[index update destroy]
   resources :welcome, only: %i[index]
 end

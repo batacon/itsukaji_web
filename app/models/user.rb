@@ -4,8 +4,6 @@ class User < ApplicationRecord
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true
 
-  before_destroy :destroy_group, if: :owner?
-
   class << self
     def create_with_group!(user_params)
       ActiveRecord::Base.transaction do
@@ -19,11 +17,5 @@ class User < ApplicationRecord
 
   def owner?
     group.owner.id == self.id
-  end
-
-  private
-
-  def destroy_group
-    group.destroy!
   end
 end

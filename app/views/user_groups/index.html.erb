@@ -12,6 +12,13 @@
     <h3>メンバー</h3>
     <%= render(UserComponent.with_collection(@users)) %>
   </ul>
+
+  <% if current_user.owner? %>
+    <%= button_to 'グループ削除', user_group_path(current_user.group),
+          method: :delete,
+          form: { data: { turbo_confirm: 'あなたとタスクを共有しているユーザー全員をグループから削除してあなたも退会します。本当にグループを削除しますか？' } }
+    %>
+  <% end %>
 </div>
 
 
