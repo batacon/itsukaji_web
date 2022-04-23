@@ -1,11 +1,21 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  interval_days: 1
+  name: 風呂壁掃除
+  interval_days: 5
   user_group: one
 
 two:
-  name: MyString
-  interval_days: 1
-  user_group: two
+  name: クイックルワイパー
+  interval_days: 3
+  user_group: one
+
+barely_valid:
+  name: <%= 'a' * 20 %>
+  interval_days: 999
+  user_group: one
+
+without_logs:
+  name: 枕カバー交換
+  interval_days: 3
+  user_group: one

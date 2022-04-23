@@ -33,7 +33,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_19_133105) do
 
   create_table "user_groups", force: :cascade do |t|
     t.bigint "owner_id"
-    t.string "invitation_code"
+    t.string "invitation_code", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["invitation_code"], name: "index_user_groups_on_invitation_code", unique: true

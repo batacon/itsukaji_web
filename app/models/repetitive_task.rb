@@ -3,7 +3,7 @@ class RepetitiveTask < ApplicationRecord
 
   has_many :logs, ->{order(date: :desc)}, class_name: 'RepetitiveTaskLog', dependent: :destroy
 
-  validates :name, presence: true, uniqueness: { scope: :user_group_id }, length: { maximum: 20 }
+  validates :name, presence: true, length: { maximum: 20 }
   validates :interval_days, presence: true, numericality: { greater_than: 0, less_than: 1000 }
 
   def done_today?
@@ -18,6 +18,10 @@ class RepetitiveTask < ApplicationRecord
     @last_done_at ||= logs.order(date: :desc).first&.date
   end
 
+  def reset_last_done_at
+    @last_done_at = nil
+  end
+
   def never_done?
     last_done_at.nil?
   end
@@ -25,13 +29,13 @@ class RepetitiveTask < ApplicationRecord
   def days_since_last_done
     return 0 if never_done?
 
-    (Date.today - last_done_at).to_i
+    Date.today - last_done_at
   end
 
   def days_until_next
     return 0 if never_done?
 
-    number_of_days = (interval_days - days_since_last_done).to_i
+    number_of_days = interval_days - days_since_last_done
     number_of_days < 0 ? 0 : number_of_days
   end
 

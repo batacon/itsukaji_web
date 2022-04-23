@@ -1,7 +1,9 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  owner: one
+  owner: owner
+  invitation_code: aaaaaaaaaa
 
 two:
-  owner: two
+  owner: owner2
+  invitation_code: bbbbbbbbbb

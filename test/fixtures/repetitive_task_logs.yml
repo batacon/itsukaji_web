@@ -1,9 +1,9 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  date: 2022-04-05
+today:
+  date: <%= Date.today %>
   repetitive_task: one
 
-two:
-  date: 2022-04-05
+yesterday:
+  date: <%= Date.yesterday %>
   repetitive_task: two
