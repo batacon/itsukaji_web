@@ -29,7 +29,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
       end
 
       it 'emailがオーナーのemailでない場合は、ユーザーは作成されず、welcomeページにリダイレクト' do
-        invitation_params = { invitation_code: owner.group.invitation_code, inviter_email: users(:member2).email }
+        invitation_params = { invitation_code: owner.group.invitation_code, inviter_email: users(:member1_2).email }
         assert_difference 'owner.group.users.count', 0 do
           assert_difference 'UserGroup.count', 0 do
             post users_path, params: user_params.merge(invitation_params)
@@ -80,7 +80,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
         before do
           create_user_and_log_in
           @current_user = User.last
-          @member = users(:member1)
+          @member = users(:member1_1)
         end
 
         it '対象がグループのメンバーなら削除し、ユーザーグループ画面にリダイレクト' do

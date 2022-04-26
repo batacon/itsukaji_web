@@ -24,7 +24,7 @@ class UserGroupsControllerTest < ActionDispatch::IntegrationTest
 
     describe 'destroy' do
       it 'ユーザーグループを削除し、トップページにリダイレクト' do
-        expect(user_group.users.count).must_equal 3 # owner, member1, member2
+        expect(user_group.users.count).must_equal 3 # owner, member1_1, member1_2
         assert_difference 'UserGroup.count', -1 do
           assert_difference 'User.count', -3 do
             delete user_group_path(user_group)

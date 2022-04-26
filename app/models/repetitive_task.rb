@@ -29,13 +29,13 @@ class RepetitiveTask < ApplicationRecord
   def days_since_last_done
     return 0 if never_done?
 
-    Date.today - last_done_at
+    (Date.today - last_done_at).to_i
   end
 
   def days_until_next
     return 0 if never_done?
 
-    number_of_days = interval_days - days_since_last_done
+    number_of_days = (interval_days - days_since_last_done).to_i
     number_of_days < 0 ? 0 : number_of_days
   end
 

@@ -2,7 +2,7 @@ require "test_helper"
 
 class UserTest < ActiveSupport::TestCase
   describe 'responses' do
-    let(:user) { users(:member1) }
+    let(:user) { users(:member1_1) }
 
     it 'responses correctly' do
       expect(user).must_respond_to(:name)
@@ -13,7 +13,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   describe 'validations' do
-    let(:user) { users(:member1) }
+    let(:user) { users(:member1_1) }
 
     it 'バリデーション通る' do
       expect(user.valid?).must_equal true
@@ -60,7 +60,7 @@ class UserTest < ActiveSupport::TestCase
       end
 
       it 'emailがオーナーのemailでない場合は、ユーザーは作成されず、falseが返る' do
-        invalid_invitation_params = { invitation_code: owner_user.group.invitation_code, inviter_email: users(:member2).email }
+        invalid_invitation_params = { invitation_code: owner_user.group.invitation_code, inviter_email: users(:member1_2).email }
         assert_difference 'User.count', 0 do
           assert_difference 'UserGroup.count', 0 do
             new_user = User.create_by_invitation(user_params, invalid_invitation_params)
@@ -95,7 +95,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   describe 'instance methods' do
-    let(:user) { users(:member1) }
+    let(:user) { users(:member1_1) }
 
     describe 'User#owner?' do
       it 'グループのオーナーならtrue' do
@@ -108,8 +108,24 @@ class UserTest < ActiveSupport::TestCase
       end
     end
 
-    # TODO: describe 'User#able_to_destroy?' do
-    # end
+    describe 'User#able_to_destroy?' do
+      let(:owner_user) { users(:owner1) }
+      it 'グループのオーナーで、削除対象が自分のグループのメンバーで自分自身でなければtrue' do
+        expect(owner_user.able_to_destroy?(user)).must_equal true
+      end
+
+      it '削除対象が自分自身であればfalse' do
+        expect(owner_user.able_to_destroy?(owner_user)).must_equal false
+      end
+
+      it 'グループのオーナーでなければfalse' do
+        expect(user.able_to_destroy?(users(:member1_2))).must_equal false
+      end
+
+      it '削除対象が自分のグループのメンバーでなければfalse' do
+        expect(owner_user.able_to_destroy?(users(:member2_1))).must_equal false
+      end
+    end
 
     describe 'User#member_of?' do
       it 'グループのメンバーならtrue' do
