@@ -68,7 +68,7 @@ class RepetitiveTaskTest < ActiveSupport::TestCase
       end
 
       it '今日のログがないならfalse' do
-        repetitive_task.logs.create!(date: Date.tomorrow)
+        repetitive_task.logs.create!(date: Date.yesterday)
         expect(repetitive_task.done_today?).must_equal false
       end
     end
@@ -80,7 +80,7 @@ class RepetitiveTaskTest < ActiveSupport::TestCase
       end
 
       it '今日のログがないならnil' do
-        repetitive_task.logs.create!(date: Date.tomorrow)
+        repetitive_task.logs.create!(date: Date.yesterday)
         expect(repetitive_task.today_log).must_be_nil
       end
     end

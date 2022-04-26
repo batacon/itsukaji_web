@@ -22,6 +22,12 @@ class RepetitiveTaskLogTest < ActiveSupport::TestCase
       expect(repetitive_task_log.valid?).must_equal false
       expect(repetitive_task_log.errors[:date]).must_include "を入力してください"
     end
+
+    it 'dateが未来の日付ならバリデーションエラー' do
+      repetitive_task_log.date = Date.tomorrow
+      expect(repetitive_task_log.valid?).must_equal false
+      expect(repetitive_task_log.errors[:date]).must_include "は今日以前の日付を指定してください"
+    end
   end
 
   describe 'instance methods' do

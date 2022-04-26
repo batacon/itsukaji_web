@@ -2,6 +2,7 @@ class RepetitiveTaskLog < ApplicationRecord
   belongs_to :repetitive_task
 
   validates :date, presence: true, uniqueness: { scope: :repetitive_task_id }
+  validate :date_cannot_be_in_the_future
 
   after_create :update_last_done_at
 
@@ -13,5 +14,11 @@ class RepetitiveTaskLog < ApplicationRecord
 
   def update_last_done_at
     repetitive_task.reset_last_done_at
+  end
+
+  def date_cannot_be_in_the_future
+    return if date.blank? || date <= Date.today
+
+    errors.add(:date, 'は今日以前の日付を指定してください')
   end
 end
