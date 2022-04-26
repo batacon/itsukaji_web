@@ -1,35 +1,41 @@
 <div>
-  <h1 class="font-bold text-xl">はじめまして、<%= @name %>さん！</h1>
+  <h1 class="mb-8 font-bold text-xl">はじめまして、<%= @name %>さん！</h1>
 
-  <p>
-    他の人から招待コードを受け取っている場合は
-  </p>
-  <%= form_with url: users_path do |form| %>
-    <%= form.hidden_field :name, value: @name %>
-    <%= form.hidden_field :email, value: @email %>
+  <div class="mb-10">
+    <p class="flex items-center mb-3 text-primary font-bold">
+      <%= image_tag 'icon_group', class: 'mr-2' %>
+      招待コードをお持ちの場合
+    </p>
+    <%= form_with url: users_path do |form| %>
+      <%= form.hidden_field :name, value: @name %>
+      <%= form.hidden_field :email, value: @email %>
 
-    <div>
-      <%= form.label '招待してくれた人のGmailアドレス', class: 'mr-2' %>
-      <%= form.email_field :inviter_email %>
-    </div>
+      <div class="flex flex-col mb-3">
+        <%= form.label '招待してくれた人のGmailアドレス', class: 'mb-2' %>
+        <%= form.email_field :inviter_email, class: 'rounded' %>
+      </div>
 
-    <div>
-      <%= form.label '招待コード', class: 'mr-2' %>
-      <%= form.text_field :invitation_code %>
-    </div>
+      <div class="flex flex-col mb-3">
+        <%= form.label '招待コード', class: 'mb-2' %>
+        <%= form.text_field :invitation_code, class: 'rounded' %>
+      </div>
 
-    <%= form.submit '送信' %>
-  <% end %>
+      <%= form.submit '送信', class: 'p-3 bg-primary text-white rounded' %>
+    <% end %>
+  </div>
 
-  <hr>
+  <div>
+    <p class="flex items-center mb-3 text-primary font-bold">
+      <%= image_tag 'icon_solo', class: 'mr-2' %>
+      ひとりで使う、もしくは他の人を招待する場合
+    </p>
+    <%= form_with url: users_path do |form| %>
+      <%= form.hidden_field :name, value: @name %>
+      <%= form.hidden_field :email, value: @email %>
 
-  <p>
-    一人で使う、あるいはあなたが他の人を招待して一緒に使うつもりならこちら
-  </p>
-  <%= form_with url: users_path do |form| %>
-    <%= form.hidden_field :name, value: @name %>
-    <%= form.hidden_field :email, value: @email %>
-
-    <%= form.submit 'アカウント作成' %>
-  <% end %>
+      <div>
+        <%= form.submit 'アカウント作成', class: 'p-3 bg-primary text-white rounded' %>
+      </div>
+    <% end %>
+  </div>
 </div>

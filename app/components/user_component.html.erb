@@ -1,10 +1,16 @@
 <li class="flex">
-  <%= user_name %>
-  <%= label %>
-  <% if me? && !owner? %>
-    <%= button_to 'グループから抜ける', user_path(current_user), method: :delete, form: { data: { turbo_confirm: '本当にグループから抜けますか？' } } %>
-  <% end %>
-  <% if removable_user? %>
-    <%= button_to '共有解除', user_path(@user), method: :delete, form: { data: { turbo_confirm: '本当に共有を解除しますか？'} } %>
+  <span class="mr-8">
+    <%= user_name %> <%= label %>
+  </span>
+  <% if can_leave_group? %>
+    <%= button_to image_tag('icon_leave_group'), user_path(current_user),
+          method: :delete,
+          form: { data: { turbo_confirm: 'グループから抜けますか？再び入るにはもう一度招待してもらう必要があります。' } }
+    %>
+  <% elsif can_remove_target_user? %>
+    <%= button_to image_tag('icon_delete_user'), user_path(@user),
+          method: :delete,
+          form: { data: { turbo_confirm: "#{user_name}さんとの共有を解除しますか？"} }
+    %>
   <% end %>
 </li>

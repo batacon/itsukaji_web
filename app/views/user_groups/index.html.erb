@@ -1,31 +1,38 @@
 <div>
   <% if current_user.owner? %>
-    <p>招待コード</p>
-    <%= button_to 'コードを変更', user_group_path(@user_group), method: :patch  %>
-    <div class="flex justify-between p-3 border rounded">
-      <%= @invitation_code %>
-      <button id="copy-button">コピー</button>
+    <div class="mb-6">
+      <p class="text-primary font-bold">招待コード</p>
+      <div class="flex justify-between p-3 border rounded">
+        <%= @invitation_code %>
+        <div class="flex items-center">
+          <button id="copy-button" class="mr-3"><%= image_tag 'icon_copy' %></button>
+          <%= button_to image_tag('icon_reload'), user_group_path(@user_group), method: :patch  %>
+        </div>
+      </div>
     </div>
   <% end %>
 
-  <ul>
-    <h3>メンバー</h3>
+  <ul class="space-y-2">
+    <h3 class="mb-2 text-primary text-lg font-bold">メンバー</h3>
     <%= render(UserComponent.with_collection(@users)) %>
   </ul>
 
   <% if current_user.owner? %>
-    <%= button_to 'グループ削除', user_group_path(current_user.group),
+    <%= button_to '退会', user_group_path(current_user.group),
           method: :delete,
-          form: { data: { turbo_confirm: 'あなたとタスクを共有しているユーザー全員をグループから削除してあなたも退会します。本当にグループを削除しますか？' } }
+          class: 'mt-20 text-red-600 border border-red-600 rounded p-1',
+          form: { data: { turbo_confirm: '注意！！オーナーであるあなたが退会すると、タスクを共有しているユーザー全員も退会します。登録したタスクのデータはすべて消え、復元できません。本当に退会しますか？' } }
     %>
   <% end %>
 </div>
 
 
 <script>
-document.getElementById('copy-button').addEventListener('click', () => {
-  navigator.clipboard.writeText('<%= @invitation_code %>').then(() => {
-    alert('招待コードをクリップボードにコピーしました。');
+<% if current_user.owner? %>
+  document.getElementById('copy-button').addEventListener('click', () => {
+    navigator.clipboard.writeText('<%= @invitation_code %>').then(() => {
+      alert('招待コードをクリップボードにコピーしました。');
+    });
   });
-});
+<% end %>
 </script>

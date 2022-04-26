@@ -21,15 +21,21 @@ class UserComponent < ViewComponent::Base
     end
   end
 
+  def can_leave_group?
+    me? && !owner?
+  end
+
+  def can_remove_target_user?
+    current_user.owner? && !owner?
+  end
+
+  private
+
   def owner?
     @user.owner?
   end
 
   def me?
     @user.id == current_user.id
-  end
-
-  def removable_user?
-    current_user.owner? && !owner?
   end
 end

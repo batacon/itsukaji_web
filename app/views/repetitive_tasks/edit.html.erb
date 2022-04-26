@@ -8,13 +8,13 @@
 </div>
 
 <%= form_with(model: @repetitive_task) do |form| %>
-  <p class="text-xs leading-none text-primary font-bold">(必須 / 20文字まで)</p>
+  <p class="mb-2 text-xs leading-none text-primary font-bold">(必須 / 20文字まで)</p>
   <div class="flex items-center mb-10">
     <%= form.label 'タスク名', class: 'mr-2' %>
     <%= form.text_field :name, placeholder: '枕カバーの洗濯', maxlength: 20, required: true, class: 'flex-1' %>
   </div>
 
-  <p class="text-xs leading-none text-primary font-bold">(必須 / 1〜999日まで)</p>
+  <p class="mb-2 text-xs leading-none text-primary font-bold">(必須 / 1〜999日まで)</p>
   <div class="mb-10">
     <%= form.label '間隔(日)', class: 'mr-2' %>
     <%= form.number_field :interval_days, placeholder: '7', min: 1, max: 999, step: 1, required: true %>

@@ -15,16 +15,22 @@ class UserGroupsControllerTest < ActionDispatch::IntegrationTest
 
     describe 'update' do
       it 'ユーザーグループの招待コードを更新し、ユーザーグループ画面にリダイレクト' do
-        invitation_code = user_group.invitation_code
+        old_invitation_code = user_group.invitation_code
         put user_group_path(user_group)
-        expect(invitation_code).wont_equal user_group.reload.invitation_code
+        expect(user_group.reload.invitation_code).wont_equal old_invitation_code
         assert_redirected_to user_groups_path
       end
     end
 
     describe 'destroy' do
       it 'ユーザーグループを削除し、トップページにリダイレクト' do
-        delete user_group_path(user_group)
+        expect(user_group.users.count).must_equal 3 # owner, member1, member2
+        assert_difference 'UserGroup.count', -1 do
+          assert_difference 'User.count', -3 do
+            delete user_group_path(user_group)
+          end
+        end
+        assert_redirected_to root_path
       end
     end
   end
