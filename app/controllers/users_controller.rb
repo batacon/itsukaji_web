@@ -2,29 +2,28 @@ class UsersController < ApplicationController
   skip_before_action :check_logged_in, only: :create
 
   def create
-    if invited?
-      inviter = User.find_by(email: invitation_params[:inviter_email])
-      if valid_invitation?(inviter)
-        user = User.create!(user_params.merge(group_id: inviter.group_id))
-      else
-        flash[:danger] = '招待者のGmailアドレスか招待コードが違います'
-        redirect_to root_path
-      end
-    else
+    unless invited?
       user = User.create_with_group!(user_params)
+      log_in user
+      return redirect_to repetitive_tasks_path
     end
-    log_in user
-    redirect_to repetitive_tasks_path
+
+    if user = User.create_by_invitation(user_params, invitation_params)
+      log_in user
+      return redirect_to repetitive_tasks_path
+    end
+    flash[:danger] = '招待者のGmailアドレスか招待コードが違います'
+    redirect_to welcome_index_path(user: user_params)
   end
 
   def destroy
-    user = User.find(params[:id])
-    if user.id == current_user.id
+    target_user = User.find(params[:id])
+    if target_user.id == current_user.id
       log_out
-      user.destroy!
+      target_user.destroy!
       redirect_to root_path
-    else
-      user.destroy!
+    elsif current_user.able_to_destroy?(target_user)
+      target_user.destroy!
       redirect_to user_groups_path
     end
   end

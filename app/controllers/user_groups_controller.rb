@@ -8,7 +8,7 @@ class UserGroupsController < ApplicationController
   def update
     user_group = UserGroup.find(params[:id])
     user_group.regenerate_invitation_code
-    redirect_to user_group_path(user_group)
+    redirect_to user_groups_path
   end
 
   def destroy

@@ -1,26 +1,118 @@
 require "test_helper"
 
 class RepetitiveTasksControllerTest < ActionDispatch::IntegrationTest
-  test "the truth" do
-    assert true
+  include SessionsHelper
+
+  let(:repetitive_task_params) { { name: 'test', interval_days: 1 } }
+  let(:repetitive_task) { repetitive_tasks(:done_today) }
+
+  describe 'ログイン時' do
+    before { create_user_and_log_in }
+
+    describe 'index' do
+      it 'タスク一覧画面を正しく表示' do
+        get repetitive_tasks_path
+        assert_response :success
+      end
+    end
+
+    describe 'new' do
+      it 'タスク新規画面を表示' do
+        get new_repetitive_task_path
+        assert_response :success
+      end
+    end
+
+    describe 'create' do
+      it 'last_done_at無しなら、タスクのみを作成し、タスク一覧画面にリダイレクト' do
+        assert_difference 'RepetitiveTask.count', 1 do
+          assert_difference 'RepetitiveTaskLog.count', 0 do
+            post repetitive_tasks_path, params: { repetitive_task: repetitive_task_params }
+          end
+        end
+        assert_redirected_to repetitive_tasks_path
+      end
+
+      it 'last_done_atありなら、タスクとログを作成し、タスク一覧画面にリダイレクト' do
+        last_done_at = Date.yesterday
+        assert_difference 'RepetitiveTask.count', 1 do
+          assert_difference 'RepetitiveTaskLog.count', 1 do
+            post repetitive_tasks_path, params: { repetitive_task: repetitive_task_params.merge(last_done_at:) }
+          end
+        end
+        assert_redirected_to repetitive_tasks_path
+      end
+    end
+
+    describe 'edit' do
+      it 'タスク編集画面を表示' do
+        get edit_repetitive_task_path(repetitive_task)
+        assert_response :success
+      end
+    end
+
+    describe 'update' do
+      it 'タスクを更新し、タスク一覧画面にリダイレクト' do
+        put repetitive_task_path(repetitive_task), params: { repetitive_task: { name: 'test2' } }
+        assert_redirected_to repetitive_tasks_path
+      end
+    end
+
+    describe 'destroy' do
+      it 'タスクを削除し、タスク一覧画面にリダイレクト' do
+        assert_difference 'RepetitiveTask.count', -1 do
+          delete repetitive_task_path(repetitive_task)
+        end
+        assert_redirected_to repetitive_tasks_path
+      end
+    end
   end
-  # test "should get index" do
-  #   get repetitive_tasks_index_url
-  #   assert_response :success
-  # end
 
-  # test "should get show" do
-  #   get repetitive_tasks_show_url
-  #   assert_response :success
-  # end
+  describe 'ログアウト時' do
+    describe 'index' do
+      it 'ログインしていなければトップページへリダイレクト' do
+        get repetitive_tasks_path
+        assert_redirected_to root_url
+      end
+    end
 
-  # test "should get new" do
-  #   get repetitive_tasks_new_url
-  #   assert_response :success
-  # end
+    describe 'new' do
+      it 'ログインしていなければトップページへリダイレクト' do
+        get new_repetitive_task_path
+        assert_redirected_to root_url
+      end
+    end
 
-  # test "should get edit" do
-  #   get repetitive_tasks_edit_url
-  #   assert_response :success
-  # end
+    describe 'create' do
+      it 'ログインしていなければトップページへリダイレクト' do
+        assert_difference 'RepetitiveTask.count', 0 do
+          post repetitive_tasks_path, params: { repetitive_task: repetitive_task_params }
+        end
+        assert_redirected_to root_url
+      end
+    end
+
+    describe 'edit' do
+      it 'ログインしていなければトップページへリダイレクト' do
+        get edit_repetitive_task_path(repetitive_task)
+        assert_redirected_to root_url
+      end
+    end
+
+    describe 'update' do
+      it 'ログインしていなければトップページへリダイレクト' do
+        put repetitive_task_path(repetitive_task), params: { repetitive_task: { name: 'test2' } }
+        assert_redirected_to root_url
+      end
+    end
+
+    describe 'destroy' do
+      it 'ログインしていなければトップページへリダイレクト' do
+        assert_difference 'RepetitiveTask.count', 0 do
+          delete repetitive_task_path(repetitive_task)
+        end
+        assert_redirected_to root_url
+      end
+    end
+  end
 end

@@ -1,11 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+done_today:
   name: 風呂壁掃除
   interval_days: 5
   user_group: one
 
-two:
+done_yesterday:
   name: クイックルワイパー
   interval_days: 3
   user_group: one

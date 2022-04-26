@@ -2,8 +2,8 @@
 
 today:
   date: <%= Date.today %>
-  repetitive_task: one
+  repetitive_task: done_today
 
 yesterday:
   date: <%= Date.yesterday %>
-  repetitive_task: two
+  repetitive_task: done_yesterday

@@ -73,6 +73,7 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
   gem 'minitest-spec-rails'
+  gem 'minitest-reporters'
 end
 
 gem "tailwindcss-rails", "~> 2.0"

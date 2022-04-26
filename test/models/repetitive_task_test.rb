@@ -2,7 +2,7 @@ require "test_helper"
 
 class RepetitiveTaskTest < ActiveSupport::TestCase
   describe 'responses' do
-    let(:repetitive_task) { repetitive_tasks(:one) }
+    let(:repetitive_task) { repetitive_tasks(:done_today) }
 
     it 'responses correctly' do
       expect(repetitive_task).must_respond_to(:name)

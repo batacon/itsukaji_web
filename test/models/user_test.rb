@@ -1,9 +1,9 @@
 require "test_helper"
 
 class UserTest < ActiveSupport::TestCase
-  let(:user) { users(:one) }
-
   describe 'responses' do
+    let(:user) { users(:member1) }
+
     it 'responses correctly' do
       expect(user).must_respond_to(:name)
       expect(user).must_respond_to(:email)
@@ -13,6 +13,8 @@ class UserTest < ActiveSupport::TestCase
   end
 
   describe 'validations' do
+    let(:user) { users(:member1) }
+
     it 'バリデーション通る' do
       expect(user.valid?).must_equal true
     end
@@ -30,29 +32,99 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
-  describe 'User.create_with_group!' do
-    it 'ユーザーとグループが同時に作成される' do
-      user_params = { name: 'test', email: 'example@example.com' }
-      assert_difference 'User.count', 1 do
-        assert_difference 'UserGroup.count', 1 do
-          User.create_with_group!(user_params)
+  describe 'class methods' do
+    let(:user_params) { { name: 'test', email: 'example@example.com' } }
+
+    describe 'User.create_by_invitation' do
+      let(:owner_user) { users(:owner1) }
+      let(:invitation_params) { { invitation_code: owner_user.group.invitation_code, inviter_email: owner_user.email } }
+
+      it 'オーナーのemailと正しい招待コードが入力されれば、ユーザーが作成され、招待されたグループに入る' do
+        assert_difference 'User.count', 1 do
+          assert_difference 'UserGroup.count', 0 do
+            new_user = User.create_by_invitation(user_params, invitation_params)
+            expect(new_user).must_be_instance_of User
+            expect(new_user.group).must_equal owner_user.group
+          end
         end
       end
-      last_user = User.last
-      expect(last_user.name).must_equal user_params[:name]
-      expect(last_user.email).must_equal user_params[:email]
-      expect(UserGroup.last.owner).must_equal User.last
+
+      it 'emailでユーザーが見つからない場合は、ユーザーは作成されず、falseが返る' do
+        invalid_invitation_params = { invitation_code: owner_user.group.invitation_code, inviter_email: 'invalid@invalid.com' }
+        assert_difference 'User.count', 0 do
+          assert_difference 'UserGroup.count', 0 do
+            new_user = User.create_by_invitation(user_params, invalid_invitation_params)
+            expect(new_user).must_equal false
+          end
+        end
+      end
+
+      it 'emailがオーナーのemailでない場合は、ユーザーは作成されず、falseが返る' do
+        invalid_invitation_params = { invitation_code: owner_user.group.invitation_code, inviter_email: users(:member2).email }
+        assert_difference 'User.count', 0 do
+          assert_difference 'UserGroup.count', 0 do
+            new_user = User.create_by_invitation(user_params, invalid_invitation_params)
+            expect(new_user).must_equal false
+          end
+        end
+      end
+
+      it '招待コードが間違っている場合は、ユーザーは作成されず、falseが返る' do
+        invalid_invitation_params = { invitation_code: 'invalid_code', inviter_email: owner_user.email }
+        assert_difference 'User.count', 0 do
+          assert_difference 'UserGroup.count', 0 do
+            new_user = User.create_by_invitation(user_params, invalid_invitation_params)
+            expect(new_user).must_equal false
+          end
+        end
+      end
+    end
+
+    describe 'User.create_with_group!' do
+      it 'ユーザーとグループが同時に作成される' do
+        assert_difference 'User.count', 1 do
+          assert_difference 'UserGroup.count', 1 do
+            new_user = User.create_with_group!(user_params)
+            expect(new_user.name).must_equal user_params[:name]
+            expect(new_user.email).must_equal user_params[:email]
+            expect(UserGroup.last.owner).must_equal new_user
+          end
+        end
+      end
     end
   end
 
-  describe 'User#owner?' do
-    it 'グループのオーナーならtrue' do
-      owner_user = users(:owner)
-      expect(owner_user.owner?).must_equal true
+  describe 'instance methods' do
+    let(:user) { users(:member1) }
+
+    describe 'User#owner?' do
+      it 'グループのオーナーならtrue' do
+        owner_user = users(:owner1)
+        expect(owner_user.owner?).must_equal true
+      end
+
+      it 'グループのオーナーでなければfalse' do
+        expect(user.owner?).must_equal false
+      end
     end
 
-    it 'グループのオーナーでなければfalse' do
-      expect(user.owner?).must_equal false
+    # TODO: describe 'User#able_to_destroy?' do
+    # end
+
+    describe 'User#member_of?' do
+      it 'グループのメンバーならtrue' do
+        expect(user.member_of?(user.group)).must_equal true
+      end
+
+      it 'グループのオーナーならtrue' do
+        owner_user = users(:owner1)
+        expect(owner_user.member_of?(owner_user.group)).must_equal true
+      end
+
+      it 'グループのメンバーでなければfalse' do
+        another_group = user_groups(:two)
+        expect(user.member_of?(another_group)).must_equal false
+      end
     end
   end
 end
