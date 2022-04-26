@@ -1,11 +1,22 @@
 <header class="h-12 p-3 bg-primary">
-  <div class="flex items-center justify-between max-w-md mx-auto">
-    <%= link_to repetitive_tasks_path do %>
-      <%= image_tag 'header_logo.png', class: 'w-20' %>
-    <% end %>
+  <div class="flex items-center justify-between">
+    <%= link_to image_tag('header_logo.png'), repetitive_tasks_path, class: 'w-20' %>
+
     <% if current_user %>
-      <%= link_to '共有設定', user_groups_path, class: 'text-white' %>
-      <%= link_to 'ログアウト', log_out_path, class: 'text-white' %>
+      <div x-data="{ isMenuOpen: false }">
+        <button class="h-7" @click="isMenuOpen = !isMenuOpen">
+          <%= image_tag('icon_three_dots') %>
+        </button>
+
+        <ul
+          class="fixed top-12 right-0 p-2 space-y-2 bg-primary whitespace-nowrap"
+          x-show="isMenuOpen"
+          @click.outside="isMenuOpen = false"
+        >
+          <li><%= link_to '招待・共有設定', user_groups_path, class: 'text-white' %></li>
+          <li><%= link_to 'ログアウト', log_out_path, class: 'text-white' %></li>
+        </ul>
+    </div>
     <% end %>
   </div>
 </header>
