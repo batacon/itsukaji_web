@@ -10,6 +10,18 @@ class RepetitiveTaskLog < ApplicationRecord
     (Date.today - self.date).to_i
   end
 
+  def previous_log_date
+    return if self_index == same_task_logs.count - 1
+
+    same_task_logs[self_index + 1]&.date
+  end
+
+  def next_log_date
+    return if self_index.zero?
+
+    same_task_logs[self_index - 1]&.date
+  end
+
   private
 
   def update_last_done_at
@@ -20,5 +32,13 @@ class RepetitiveTaskLog < ApplicationRecord
     return if date.blank? || date <= Date.today
 
     errors.add(:date, 'は今日以前の日付を指定してください')
+  end
+
+  def self_index
+    @index = same_task_logs.ids.index(id)
+  end
+
+  def same_task_logs
+    @logs = repetitive_task.logs
   end
 end

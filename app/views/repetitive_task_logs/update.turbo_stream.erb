@@ -1,0 +1,7 @@
+<%= turbo_stream.replace 'repetitive_task_logs' do %>
+  <%= turbo_frame_tag 'repetitive_task_logs' do %>
+    <ul>
+      <%= render(RepetitiveTaskLogComponent.with_collection(@repetitive_task.logs)) %>
+    </ul>
+  <% end %>
+<% end %>

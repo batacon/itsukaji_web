@@ -18,7 +18,7 @@
   <p class="text-xs leading-none text-gray-500">(任意)</p>
   <div class="flex items-center mb-10">
     <%= form.label '前やった日' , class: 'mr-2'%>
-    <%= form.date_field :last_done_at, class: 'flex-1' %>
+    <%= form.date_field :last_done_at, max: Date.today, class: 'flex-1' %>
   </div>
 
   <div class="flex flex-row-reverse">

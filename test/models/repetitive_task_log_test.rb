@@ -42,5 +42,29 @@ class RepetitiveTaskLogTest < ActiveSupport::TestCase
         expect(yesterday_log.how_many_days_ago).must_equal 1
       end
     end
+
+    describe '#previous_log_date' do
+      it '最古のログでなければ前のログの日付' do
+        log = repetitive_task_logs(:barely_valid_log2)
+        expect(log.previous_log_date).must_equal repetitive_task_logs(:barely_valid_log3).date
+      end
+
+      it '最古のログならnil' do
+        oldest_log = repetitive_task_logs(:barely_valid_log3)
+        expect(oldest_log.previous_log_date).must_equal nil
+      end
+    end
+
+    describe '#next_log_date' do
+      it '最新のログでなければ次のログの日付' do
+        log = repetitive_task_logs(:barely_valid_log2)
+        expect(log.next_log_date).must_equal repetitive_task_logs(:barely_valid_log1).date
+      end
+
+      it '最新のログならnil' do
+        newest_log = repetitive_task_logs(:barely_valid_log1)
+        expect(newest_log.next_log_date).must_equal nil
+      end
+    end
   end
 end

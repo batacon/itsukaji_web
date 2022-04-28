@@ -16,6 +16,14 @@ class RepetitiveTaskLogsControllerTest < ActionDispatch::IntegrationTest
       end
     end
 
+    describe 'update' do
+      it '正常に編集できる' do
+        put repetitive_task_repetitive_task_log_path(repetitive_task_log.repetitive_task, repetitive_task_log, format: :turbo_stream), params: { repetitive_task_log: { date: Date.today } }
+        expect(repetitive_task_log.reload.date).must_equal Date.today
+        assert_response :success
+      end
+    end
+
     describe 'destroy' do
       it '正常に削除できる' do
         assert_difference 'RepetitiveTaskLog.count', -1 do
@@ -32,6 +40,14 @@ class RepetitiveTaskLogsControllerTest < ActionDispatch::IntegrationTest
         assert_difference 'RepetitiveTaskLog.count', 0 do
           post repetitive_task_repetitive_task_logs_path(repetitive_task, format: :turbo_stream), params: { repetitive_task_id: repetitive_task.id }
         end
+        assert_redirected_to root_url
+      end
+    end
+
+    describe 'update' do
+      it 'トップページにリダイレクト' do
+        put repetitive_task_repetitive_task_log_path(repetitive_task_log.repetitive_task, repetitive_task_log, format: :turbo_stream), params: { repetitive_task_log: { date: Date.today } }
+        expect(repetitive_task_log.reload.date).wont_equal Date.today
         assert_redirected_to root_url
       end
     end

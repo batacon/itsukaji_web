@@ -7,3 +7,15 @@ today:
 yesterday:
   date: <%= Date.yesterday %>
   repetitive_task: done_yesterday
+
+barely_valid_log1:
+  date: <%= Date.today %>
+  repetitive_task: barely_valid
+
+barely_valid_log2:
+  date: <%= Date.yesterday %>
+  repetitive_task: barely_valid
+
+barely_valid_log3:
+  date: <%= Date.yesterday - 1 %>
+  repetitive_task: barely_valid

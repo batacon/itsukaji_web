@@ -27,7 +27,9 @@
 
 <section class="mt-10">
   <h3 class="mb-3 text-lg font-bold text-primary">やった！ログ</h3>
-  <ul>
-    <%= render(RepetitiveTaskLogComponent.with_collection(@repetitive_task.logs)) %>
-  </ul>
+  <%= turbo_frame_tag 'repetitive_task_logs' do %>
+    <ul>
+      <%= render(RepetitiveTaskLogComponent.with_collection(@repetitive_task.logs)) %>
+    </ul>
+  <% end %>
 </section>
