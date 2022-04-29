@@ -14,6 +14,16 @@ class ActiveSupport::TestCase
 
   # Add more helper methods to be used by all tests here...
 
+  OmniAuth.config.test_mode = true
+  OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new({
+    provider: "google_oauth2",
+    uid: "12345678910",
+    info: {
+      email: "test@example.com",
+      name: "Test User",
+    }
+  })
+
   def create_user_and_log_in(name: 'test', email: 'xxxxx@example.com')
     post users_path, params: { name: name, email: email }
   end

@@ -4,7 +4,7 @@
 
     <% if current_user %>
       <div x-data="{ isMenuOpen: false }">
-        <button class="h-7" @click="isMenuOpen = !isMenuOpen">
+        <button id="header-menu" class="h-7" @click="isMenuOpen = !isMenuOpen">
           <%= image_tag('icon_three_dots') %>
         </button>
 
