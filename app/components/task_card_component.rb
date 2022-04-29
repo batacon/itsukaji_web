@@ -38,6 +38,8 @@ class TaskCardComponent < ViewComponent::Base
   end
 
   def days_until_next
-    @repetitive_task.days_until_next
+    return 'やりましょう' if should_do_today?
+
+    "あと #{@repetitive_task.days_until_next}日"
   end
 end

@@ -1,4 +1,3 @@
-
 <div class="flex flex-row items-center justify-between mb-8">
   <%= link_to image_tag('icon_back'), repetitive_tasks_path %>
   <%= button_to image_tag('icon_garbage'), repetitive_task_path(@repetitive_task),
@@ -21,14 +20,14 @@
   </div>
 
   <div class="flex flex-row-reverse">
-    <%= form.submit '保存する', class: 'border rounded p-4' %>
+    <%= form.submit '保存する', class: 'p-3 bg-primary text-white rounded' %>
   </div>
 <% end %>
 
 <section class="mt-10">
   <h3 class="mb-3 text-lg font-bold text-primary">やった！ログ</h3>
   <%= turbo_frame_tag 'repetitive_task_logs' do %>
-    <ul>
+    <ul class="space-y-1">
       <%= render(RepetitiveTaskLogComponent.with_collection(@repetitive_task.logs)) %>
     </ul>
   <% end %>

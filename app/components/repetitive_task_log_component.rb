@@ -9,13 +9,13 @@ class RepetitiveTaskLogComponent < ViewComponent::Base
     [@repetitive_task_log.repetitive_task, @repetitive_task_log]
   end
 
-  def min
+  def next_date_of_previous_log
     return if @repetitive_task_log.previous_log_date.nil?
 
     @repetitive_task_log.previous_log_date + 1
   end
 
-  def max
+  def previous_date_of_next_log
     return Date.today if @repetitive_task_log.next_log_date.nil?
 
     @repetitive_task_log.next_log_date - 1
