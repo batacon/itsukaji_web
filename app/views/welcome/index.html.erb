@@ -20,7 +20,7 @@
         <%= form.text_field :invitation_code, class: 'rounded' %>
       </div>
 
-      <%= form.submit '送信', class: 'p-3 bg-primary text-white rounded' %>
+      <%= render(SubmitButtonComponent.new(form:, label: '送信')) %>
     <% end %>
   </div>
 
@@ -34,7 +34,7 @@
       <%= form.hidden_field :email, value: @email %>
 
       <div>
-        <%= form.submit 'アカウント作成', class: 'p-3 bg-primary text-white rounded' %>
+        <%= render(SubmitButtonComponent.new(form:, label: 'アカウント作成')) %>
       </div>
     <% end %>
   </div>

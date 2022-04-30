@@ -20,6 +20,6 @@
   <% end %>
 
   <div class="flex flex-row-reverse">
-    <%= form.submit '保存する', class: 'p-3 bg-primary text-white rounded' %>
+    <%= render(SubmitButtonComponent.new(form:, label: '保存する')) %>
   </div>
 <% end %>
