@@ -80,11 +80,11 @@ class UserTest < ActiveSupport::TestCase
       end
     end
 
-    describe 'User.create_with_group!' do
+    describe 'User.create_with_group_as_owner!' do
       it 'ユーザーとグループが同時に作成される' do
         assert_difference 'User.count', 1 do
           assert_difference 'UserGroup.count', 1 do
-            new_user = User.create_with_group!(user_params)
+            new_user = User.create_with_group_as_owner!(user_params)
             expect(new_user.name).must_equal user_params[:name]
             expect(new_user.email).must_equal user_params[:email]
             expect(UserGroup.last.owner).must_equal new_user

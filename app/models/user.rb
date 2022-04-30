@@ -12,7 +12,7 @@ class User < ApplicationRecord
       create!(user_params.merge(group_id: inviter.group_id))
     end
 
-    def create_with_group!(user_params)
+    def create_with_group_as_owner!(user_params)
       ActiveRecord::Base.transaction do
         new_group = UserGroup.create!
         user = create!(user_params.merge(group_id: new_group.id))

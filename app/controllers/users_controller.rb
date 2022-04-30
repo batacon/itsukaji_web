@@ -3,7 +3,7 @@ class UsersController < ApplicationController
 
   def create
     unless invited?
-      user = User.create_with_group!(user_params)
+      user = User.create_with_group_as_owner!(user_params)
       log_in user
       return redirect_to repetitive_tasks_path
     end
