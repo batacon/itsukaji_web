@@ -1,17 +1,5 @@
 <div>
-  <% if current_user.owner? %>
-    <div class="mb-6">
-      <p class="text-primary font-bold">招待コード</p>
-      <div class="flex justify-between p-3 border rounded">
-        <%= @invitation_code %>
-        <div class="flex items-center">
-          <button id="copy-button" class="mr-3"><%= image_tag 'icon_copy' %></button>
-          <%= button_to image_tag('icon_reload'), user_group_path(@user_group), method: :patch  %>
-        </div>
-      </div>
-      <p class="text-gray-400">招待したい人に、上記の招待コードとあなたのgmailアドレスを教えてあげてください。</p>
-    </div>
-  <% end %>
+  <%= render(InvitationCodeComponent.new(current_user: @current_user, class_name: 'mb-6'))%>
 
   <ul class="space-y-2">
     <h3 class="mb-2 text-primary text-lg font-bold">メンバー</h3>
@@ -26,14 +14,3 @@
     %>
   <% end %>
 </div>
-
-
-<script>
-<% if current_user.owner? %>
-  document.getElementById('copy-button').addEventListener('click', () => {
-    navigator.clipboard.writeText('<%= @invitation_code %>').then(() => {
-      alert('招待コードをクリップボードにコピーしました。');
-    });
-  });
-<% end %>
-</script>

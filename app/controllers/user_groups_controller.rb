@@ -1,7 +1,6 @@
 class UserGroupsController < ApplicationController
   def index
     @user_group = UserGroup.find(current_user.group.id)
-    @invitation_code = @user_group.invitation_code
     @users = @user_group.users
   end
 
