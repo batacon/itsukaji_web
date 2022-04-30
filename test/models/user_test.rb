@@ -2,7 +2,7 @@ require "test_helper"
 
 class UserTest < ActiveSupport::TestCase
   describe 'responses' do
-    let(:user) { users(:member1_1) }
+    let(:user) { users(:member1_of_group1) }
 
     it 'responses correctly' do
       expect(user).must_respond_to(:name)
@@ -13,7 +13,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   describe 'validations' do
-    let(:user) { users(:member1_1) }
+    let(:user) { users(:member1_of_group1) }
 
     it 'バリデーション通る' do
       expect(user.valid?).must_equal true
@@ -60,7 +60,7 @@ class UserTest < ActiveSupport::TestCase
       end
 
       it 'emailがオーナーのemailでない場合は、ユーザーは作成されず、falseが返る' do
-        invalid_invitation_params = { invitation_code: owner_user.group.invitation_code, inviter_email: users(:member1_2).email }
+        invalid_invitation_params = { invitation_code: owner_user.group.invitation_code, inviter_email: users(:member2_of_group1).email }
         assert_difference 'User.count', 0 do
           assert_difference 'UserGroup.count', 0 do
             new_user = User.create_by_invitation(user_params, invalid_invitation_params)
@@ -95,7 +95,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   describe 'instance methods' do
-    let(:user) { users(:member1_1) }
+    let(:user) { users(:member1_of_group1) }
 
     describe 'User#owner?' do
       it 'グループのオーナーならtrue' do
@@ -119,11 +119,11 @@ class UserTest < ActiveSupport::TestCase
       end
 
       it 'グループのオーナーでなければfalse' do
-        expect(user.able_to_destroy?(users(:member1_2))).must_equal false
+        expect(user.able_to_destroy?(users(:member2_of_group1))).must_equal false
       end
 
       it '削除対象が自分のグループのメンバーでなければfalse' do
-        expect(owner_user.able_to_destroy?(users(:member2_1))).must_equal false
+        expect(owner_user.able_to_destroy?(users(:member1_of_group2))).must_equal false
       end
     end
 

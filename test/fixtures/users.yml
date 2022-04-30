@@ -1,11 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-member1_1:
+member1_of_group1:
   name: aaaaa
   email: aaaaaaa@example.com
   group: one
 
-member1_2:
+member2_of_group1:
   name: bbbbb
   email: bbbbbbb@example.com
   group: one
@@ -20,7 +20,7 @@ owner2:
   email: dddddddd@example.com
   group: two
 
-member2_1:
+member1_of_group2:
   name: eeeee
   email: eeeeeee@example.com
   group: two
