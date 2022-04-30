@@ -2,21 +2,6 @@
   <div class="flex items-center justify-between">
     <%= link_to image_tag('header_logo.png'), repetitive_tasks_path, class: 'w-20' %>
 
-    <% if current_user %>
-      <div x-data="{ isMenuOpen: false }">
-        <button id="header-menu" class="h-7" @click="isMenuOpen = !isMenuOpen">
-          <%= image_tag('icon_three_dots') %>
-        </button>
-
-        <ul
-          class="fixed top-12 right-0 space-y-2 py-3 bg-primary whitespace-nowrap"
-          x-show="isMenuOpen"
-          @click.outside="isMenuOpen = false"
-        >
-          <li><%= link_to '招待・共有設定', user_groups_path, class: 'block p-3 text-white' %></li>
-          <li><%= link_to 'ログアウト', log_out_path, class: 'block p-3 text-white' %></li>
-        </ul>
-    </div>
-    <% end %>
+    <%= render(HeaderMenuComponent.new) %>
   </div>
 </header>
