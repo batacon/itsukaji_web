@@ -1,41 +1,7 @@
 <div>
   <h1 class="mb-8 font-bold text-xl">はじめまして、<%= @name %>さん！</h1>
 
-  <div class="mb-10">
-    <p class="flex items-center mb-3 text-primary font-bold">
-      <%= image_tag 'icon_group', class: 'mr-2' %>
-      招待コードをお持ちの場合
-    </p>
-    <%= form_with url: users_path do |form| %>
-      <%= form.hidden_field :name, value: @name %>
-      <%= form.hidden_field :email, value: @email %>
+  <%= render(UserCreateFormSectionComponent.new(name: @name, email: @email, by_invitation: true, class_name: 'mb-10')) %>
 
-      <div class="flex flex-col mb-3">
-        <%= form.label '招待してくれた人のGmailアドレス', class: 'mb-2' %>
-        <%= form.email_field :inviter_email, class: 'rounded' %>
-      </div>
-
-      <div class="flex flex-col mb-3">
-        <%= form.label '招待コード', class: 'mb-2' %>
-        <%= form.text_field :invitation_code, class: 'rounded' %>
-      </div>
-
-      <%= render(SubmitButtonComponent.new(form:, label: '送信')) %>
-    <% end %>
-  </div>
-
-  <div>
-    <p class="flex items-center mb-3 text-primary font-bold">
-      <%= image_tag 'icon_solo', class: 'mr-2' %>
-      ひとりで使う、もしくは他の人を招待する場合
-    </p>
-    <%= form_with url: users_path do |form| %>
-      <%= form.hidden_field :name, value: @name %>
-      <%= form.hidden_field :email, value: @email %>
-
-      <div>
-        <%= render(SubmitButtonComponent.new(form:, label: 'アカウント作成')) %>
-      </div>
-    <% end %>
-  </div>
+  <%= render(UserCreateFormSectionComponent.new(name: @name, email: @email)) %>
 </div>

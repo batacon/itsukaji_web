@@ -11,6 +11,7 @@
 </div>
 
 <script>
+  // TODO: 本当はalpine.jsの@clickでやりたい(リロードするとクリックイベントが効かなくなるのでやむなくaddEventListenerでやっている)
   document.getElementById('copy-button').addEventListener('click', () => {
     navigator.clipboard.writeText('<%= invitation_code %>').then(() => {
       alert('招待コードをクリップボードにコピーしました。');
