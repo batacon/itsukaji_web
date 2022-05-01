@@ -5,6 +5,8 @@ class RepetitiveTaskFormComponent < ViewComponent::Base
     @repetitive_task = repetitive_task
   end
 
+  private
+
   def for_create?
     @repetitive_task.new_record?
   end

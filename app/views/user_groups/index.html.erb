@@ -1,10 +1,10 @@
 <div>
-  <%= render(InvitationCodeComponent.new(class_name: 'mb-6'))%>
+  <%= render(InvitationCodeComponent.new(current_user:, class_name: 'mb-6'))%>
 
   <ul class="space-y-2">
     <h3 class="mb-2 text-primary text-lg font-bold">メンバー</h3>
-    <%= render(UserComponent.with_collection(@users)) %>
+    <%= render(UserComponent.with_collection(@users, current_user:)) %>
   </ul>
 
-  <%= render(WithdrawButtonComponent.new(class_name: 'mt-20'))%>
+  <%= render(WithdrawButtonComponent.new(current_user:, class_name: 'mt-20'))%>
 </div>

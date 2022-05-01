@@ -51,7 +51,7 @@ class RepetitiveTaskLogTest < ActiveSupport::TestCase
 
       it '最古のログならnil' do
         oldest_log = repetitive_task_logs(:barely_valid_log3)
-        expect(oldest_log.previous_log_date).must_equal nil
+        expect(oldest_log.previous_log_date).must_be_nil
       end
     end
 
@@ -63,7 +63,7 @@ class RepetitiveTaskLogTest < ActiveSupport::TestCase
 
       it '最新のログならnil' do
         newest_log = repetitive_task_logs(:barely_valid_log1)
-        expect(newest_log.next_log_date).must_equal nil
+        expect(newest_log.next_log_date).must_be_nil
       end
     end
   end

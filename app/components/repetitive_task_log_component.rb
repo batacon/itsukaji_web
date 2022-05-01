@@ -5,6 +5,8 @@ class RepetitiveTaskLogComponent < ViewComponent::Base
     @repetitive_task_log = repetitive_task_log
   end
 
+  private
+
   def form_target
     [@repetitive_task_log.repetitive_task, @repetitive_task_log]
   end

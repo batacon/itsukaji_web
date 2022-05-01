@@ -8,6 +8,8 @@ class UserCreateFormSectionComponent < ViewComponent::Base
     @class_name = class_name
   end
 
+  private
+
   def submit_label
     @by_invitation ? '送信' : 'アカウント作成'
   end

@@ -5,6 +5,8 @@ class DoneButtonComponent < ViewComponent::Base
     @repetitive_task = repetitive_task
   end
 
+  private
+
   def done_button_image
     return 'balloon_blue_done' if done_today?
 
@@ -18,8 +20,6 @@ class DoneButtonComponent < ViewComponent::Base
   def http_method
     done_today? ? :delete : :post
   end
-
-  private
 
   def done_today?
     @repetitive_task.done_today?

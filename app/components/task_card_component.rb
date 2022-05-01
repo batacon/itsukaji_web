@@ -5,6 +5,8 @@ class TaskCardComponent < ViewComponent::Base
     @repetitive_task = repetitive_task
   end
 
+  private
+
   def edit_path
     edit_repetitive_task_path(@repetitive_task)
   end

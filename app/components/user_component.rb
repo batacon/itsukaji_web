@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
 class UserComponent < ViewComponent::Base
-  include SessionsHelper
-
-  def initialize(user:)
+  def initialize(user:, current_user:)
     @user = user
+    @current_user = current_user
   end
+
+  private
 
   def user_name
     @user.name
@@ -29,13 +30,15 @@ class UserComponent < ViewComponent::Base
     current_user.owner? && !owner?
   end
 
-  private
-
   def owner?
     @user.owner?
   end
 
   def me?
     @user.id == current_user.id
+  end
+
+  def current_user
+    @current_user
   end
 end

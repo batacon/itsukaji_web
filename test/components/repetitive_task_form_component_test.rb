@@ -3,10 +3,15 @@
 require "test_helper"
 
 class RepetitiveTaskFormComponentTest < ViewComponent::TestCase
-  def test_component_renders_something_useful
-    # assert_equal(
-    #   %(<span>Hello, components!</span>),
-    #   render_inline(RepetitiveTaskFormComponent.new(message: "Hello, components!")).css("span").to_html
-    # )
+  it '新規作成フォームが正しく表示される' do
+    repetitive_task = RepetitiveTask.new
+    render_inline(RepetitiveTaskFormComponent.new(repetitive_task:))
+    assert_text '前やった日'
+  end
+
+  it '編集フォームが正しく表示される' do
+    repetitive_task = repetitive_tasks(:done_today)
+    render_inline(RepetitiveTaskFormComponent.new(repetitive_task:))
+    assert_no_text '前やった日'
   end
 end

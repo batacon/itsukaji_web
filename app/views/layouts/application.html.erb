@@ -14,7 +14,7 @@
   <body>
     <%# TODO: flashを表示 %>
     <%# TODO: 期限が来たらWebプッシュ通知ができると尚良い %>
-    <%= render(HeaderComponent.new) %>
+    <%= render(HeaderComponent.new(current_user:)) %>
     <main class="max-w-md mx-auto pt-8 px-4 pb-24">
       <%= yield %>
     </main>

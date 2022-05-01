@@ -3,10 +3,15 @@
 require "test_helper"
 
 class InvitationCodeComponentTest < ViewComponent::TestCase
-  def test_component_renders_something_useful
-    # assert_equal(
-    #   %(<span>Hello, components!</span>),
-    #   render_inline(InvitationCodeComponent.new(message: "Hello, components!")).css("span").to_html
-    # )
+  it 'current_userがownerである場合、正しく表示される' do
+    current_user = users(:owner1)
+    render_inline(InvitationCodeComponent.new(current_user:))
+    assert_text current_user.group.invitation_code
+  end
+
+  it 'current_userがownerでない場合、表示されない' do
+    current_user = users(:member1_of_group1)
+    render_inline(InvitationCodeComponent.new(current_user:))
+    assert_no_text current_user.group.invitation_code
   end
 end

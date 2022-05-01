@@ -3,10 +3,15 @@
 require "test_helper"
 
 class RepetitiveTaskLogComponentTest < ViewComponent::TestCase
-  def test_component_renders_something_useful
-    # assert_equal(
-    #   %(<span>Hello, components!</span>),
-    #   render_inline(RepetitiveTaskLogComponent.new(message: "Hello, components!")).css("span").to_html
-    # )
+  it '今日のログが正しく表示される' do
+    repetitive_task_log = repetitive_task_logs(:today)
+    render_inline(RepetitiveTaskLogComponent.new(repetitive_task_log:))
+    assert_text '今日'
+  end
+
+  it '昨日のログが正しく表示される' do
+    repetitive_task_log = repetitive_task_logs(:yesterday)
+    render_inline(RepetitiveTaskLogComponent.new(repetitive_task_log:))
+    assert_text '1日前'
   end
 end
