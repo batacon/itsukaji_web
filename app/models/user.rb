@@ -1,4 +1,10 @@
 class User < ApplicationRecord
+  encrypts :name
+  encrypts :email, deterministic: true
+  encrypts :remember_token
+
+  has_secure_token :remember_token
+
   belongs_to :group, class_name: 'UserGroup', foreign_key: 'group_id'
 
   validates :name, presence: true
@@ -21,6 +27,13 @@ class User < ApplicationRecord
       end
     end
 
+    def find_and_authenticate(user_id, remember_token)
+      user = find_by(id: user_id)
+      return false unless user && user.authenticated?(remember_token)
+
+      user
+    end
+
     private
 
     def valid_invitation?(inviter, invitation_code)
@@ -38,5 +51,9 @@ class User < ApplicationRecord
 
   def member_of?(group)
     group.users.include?(self)
+  end
+
+  def authenticated?(remember_token)
+    self.remember_token == remember_token
   end
 end

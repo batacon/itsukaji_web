@@ -7,6 +7,7 @@ class UserTest < ActiveSupport::TestCase
     it 'responses correctly' do
       expect(user).must_respond_to(:name)
       expect(user).must_respond_to(:email)
+      expect(user).must_respond_to(:remember_token)
       expect(user).must_respond_to(:group)
       expect(user).must_respond_to(:group_id)
     end
@@ -140,6 +141,16 @@ class UserTest < ActiveSupport::TestCase
       it 'グループのメンバーでなければfalse' do
         another_group = user_groups(:two)
         expect(user.member_of?(another_group)).must_equal false
+      end
+    end
+
+    describe 'User#authenticated?' do
+      it 'remember_tokenと一致すればtrue' do
+        expect(user.authenticated?(user.remember_token)).must_equal true
+      end
+
+      it 'remember_tokenと一致しなければfalse' do
+        expect(user.authenticated?('invalid_token')).must_equal false
       end
     end
   end

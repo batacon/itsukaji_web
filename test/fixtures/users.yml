@@ -3,24 +3,29 @@
 member1_of_group1:
   name: aaaaa
   email: aaaaaaa@example.com
+  remember_token: aaaaaaaaaa
   group: one
 
 member2_of_group1:
   name: bbbbb
   email: bbbbbbb@example.com
+  remember_token: bbbbbbb
   group: one
 
 owner1:
   name: ccccc
   email: ccccccc@example.com
+  remember_token: cccccccccccccc
   group: one
 
 owner2:
   name: ddddd
   email: dddddddd@example.com
+  remember_token: ddddddddddddd
   group: two
 
 member1_of_group2:
   name: eeeee
   email: eeeeeee@example.com
+  remember_token: eeeeeeeeeeeee
   group: two
