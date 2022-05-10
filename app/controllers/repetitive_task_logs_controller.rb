@@ -4,23 +4,17 @@ class RepetitiveTaskLogsController < ApplicationController
 
   def create
     @repetitive_task.logs.create!(date: Date.today)
-    respond_to do |format|
-      format.turbo_stream
-    end
+    respond_to(&:turbo_stream)
   end
 
   def update
-    @repetitive_task_log.update!(params.require(:repetitive_task_log).permit(:date))
-    respond_to do |format|
-      format.turbo_stream
-    end
+    @repetitive_task_log.update!(log_params)
+    respond_to(&:turbo_stream)
   end
 
   def destroy
     @repetitive_task_log.destroy!
-    respond_to do |format|
-      format.turbo_stream
-    end
+    respond_to(&:turbo_stream)
   end
 
   private
@@ -31,5 +25,9 @@ class RepetitiveTaskLogsController < ApplicationController
 
   def set_repetitive_task_log
     @repetitive_task_log = RepetitiveTaskLog.find(params[:id])
+  end
+
+  def log_params
+    params.require(:repetitive_task_log).permit(:date)
   end
 end
