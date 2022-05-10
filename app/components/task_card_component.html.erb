@@ -12,20 +12,20 @@
   </div>
 
   <h3 class="mb-2 text-xl font-bold">
-    <%= task_name %>
+    <%= @task_name %>
   </h3>
 
   <div class="px-10">
-    <% if done_at_least_once %>
+    <% if done_at_least_once? %>
       <div class="flex">
-        <%= image_tag calendar_check_icon, class: 'mr-4' %>
+        <%= image_tag @calendar_check_icon, class: 'mr-4' %>
         前回 <%= last_done_at %>
       </div>
     <% end %>
 
     <div class="flex">
-      <%= image_tag bell_icon, class: 'mr-4' %>
-      <%= days_until_next %>
+      <%= image_tag @bell_icon, class: 'mr-4' %>
+      <%= @days_until_next %>
     </div>
   </div>
 <% end %>

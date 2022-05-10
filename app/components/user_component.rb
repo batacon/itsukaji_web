@@ -4,13 +4,11 @@ class UserComponent < ViewComponent::Base
   def initialize(user:, current_user:)
     @user = user
     @current_user = current_user
+
+    @user_name = user.name
   end
 
   private
-
-  def user_name
-    @user.name
-  end
 
   def label
     if owner? && me?

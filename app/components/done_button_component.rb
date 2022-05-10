@@ -8,16 +8,16 @@ class DoneButtonComponent < ViewComponent::Base
   private
 
   def done_button_image
-    return 'balloon_blue_done' if done_today?
+    return 'balloon_blue_done.svg' if done_today?
 
-    @repetitive_task.should_do_today? ? 'balloon_red_yet' : 'balloon_blue_yet'
+    @repetitive_task.should_do_today? ? 'balloon_red_yet.svg' : 'balloon_blue_yet.svg'
   end
 
   def done_or_undone_path
     done_today? ? undone_path : done_path
   end
 
-  def http_method
+  def post_or_delete
     done_today? ? :delete : :post
   end
 
