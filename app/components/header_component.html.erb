@@ -2,6 +2,8 @@
   <div class="flex items-center justify-between">
     <%= link_to image_tag('header_logo.png'), repetitive_tasks_path, class: 'w-20' %>
 
-    <%= render(HeaderMenuComponent.new(current_user:)) %>
+    <% if current_user %>
+      <%= render(HeaderMenuComponent.new()) %>
+    <% end %>
   </div>
 </header>
