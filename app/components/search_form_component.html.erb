@@ -1,0 +1,22 @@
+<%= form_with url: search_path do |form| %>
+  <%= form.text_field :name,
+        class: 'p-1',
+        placeholder: 'タスク名で絞り込み',
+        style: 'border: none',
+        id: 'search-input',
+        onblur: @submit
+  %>
+
+  <%= form.submit '', id: 'search-submit' %>
+<% end %>
+
+<script>
+  document.getElementById('search-input').addEventListener('input', event => {
+    if (event.isComposing) return;
+    <%= @submit %>
+  })
+
+  document.getElementById('search-input').addEventListener('compositionend', () => {
+    <%= @submit %>
+  });
+</script>

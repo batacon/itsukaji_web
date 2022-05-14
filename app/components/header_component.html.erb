@@ -1,8 +1,12 @@
-<header class="h-12 p-3 bg-primary">
+<header class="p-3 bg-primary">
   <div class="flex items-center justify-between">
-    <%= link_to image_tag('header_logo.png'), repetitive_tasks_path, class: 'w-20' %>
+    <%= link_to image_tag('header_logo.png'), repetitive_tasks_path, class: 'w-20 mr-4' %>
 
     <% if current_user %>
+      <% if current_page?(repetitive_tasks_path) %>
+        <%= render(SearchFormComponent.new()) %>
+      <% end %>
+
       <%= render(HeaderMenuComponent.new()) %>
     <% end %>
   </div>

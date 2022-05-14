@@ -1,16 +1,5 @@
-<div>
-  <% if @repetitive_tasks.present? %>
-    <%= render(RepetitiveTaskComponent.with_collection(@repetitive_tasks)) %>
-  <% else %>
-    <div class="space-y-5">
-      <p class="text-gray-400">
-        タスクを新規作成するには、右下のプラスボタンを押してください。
-      </p>
-      <p class="text-gray-400">
-        他の人を招待するには、右上の3点マークから「招待・共有設定」を押してください。
-      </p>
-    </div>
-  <% end %>
-</div>
+<%= turbo_frame_tag 'repetitive_task_list' do %>
+  <%= render(RepetitiveTaskListComponent.new(repetitive_tasks: @repetitive_tasks)) %>
+<% end %>
 
 <%= link_to image_tag('rounded_plus'), new_repetitive_task_path, class: 'fixed right-8 bottom-8' %>

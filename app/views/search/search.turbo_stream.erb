@@ -1,0 +1,5 @@
+<%= turbo_stream.replace 'repetitive_task_list' do %>
+  <%= turbo_frame_tag 'repetitive_task_list' do %>
+    <%= render(RepetitiveTaskListComponent.new(repetitive_tasks: @repetitive_tasks)) %>
+  <% end %>
+<% end %>

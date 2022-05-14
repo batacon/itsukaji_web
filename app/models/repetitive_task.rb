@@ -6,6 +6,14 @@ class RepetitiveTask < ApplicationRecord
   validates :name, presence: true, length: { maximum: 20 }
   validates :interval_days, presence: true, numericality: { greater_than: 0, less_than: 1000 }
 
+  scope :main_list_for_user, ->(user) { includes(:logs).where(user_group_id: user.group.id).sort_by(&:days_until_next) }
+
+  def self.search_by_name(name_query)
+    return all unless name_query.present?
+
+    where('name LIKE ?', "%#{name_query}%")
+  end
+
   def done_today?
     logs.where(date: Date.today).exists?
   end
