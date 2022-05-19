@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
   describe 'responses' do
@@ -23,13 +25,13 @@ class UserTest < ActiveSupport::TestCase
     it 'nameが空ならバリデーションエラー' do
       user.name = ''
       expect(user.valid?).must_equal false
-      expect(user.errors[:name]).must_include "を入力してください"
+      expect(user.errors[:name]).must_include 'を入力してください'
     end
 
     it 'emailが空ならバリデーションエラー' do
       user.email = ''
       expect(user.valid?).must_equal false
-      expect(user.errors[:email]).must_include "を入力してください"
+      expect(user.errors[:email]).must_include 'を入力してください'
     end
   end
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
   skip_before_action :check_logged_in, only: :create
 
@@ -8,7 +10,7 @@ class UsersController < ApplicationController
       return redirect_to repetitive_tasks_path
     end
 
-    if user = User.create_by_invitation(user_params, invitation_params)
+    if (user = User.create_by_invitation(user_params, invitation_params))
       log_in user
       return redirect_to repetitive_tasks_path
     end
@@ -35,7 +37,7 @@ class UsersController < ApplicationController
   end
 
   def valid_invitation?(inviter)
-    inviter && inviter.group.valid_invitation_code?(invitation_params[:invitation_code])
+    inviter&.group&.valid_invitation_code?(invitation_params[:invitation_code])
   end
 
   def user_params

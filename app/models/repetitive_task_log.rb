@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RepetitiveTaskLog < ApplicationRecord
   belongs_to :repetitive_task
 
@@ -7,7 +9,7 @@ class RepetitiveTaskLog < ApplicationRecord
   after_create :update_last_done_at
 
   def how_many_days_ago
-    (Date.today - self.date).to_i
+    (Date.today - date).to_i
   end
 
   def previous_log_date

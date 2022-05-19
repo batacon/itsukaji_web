@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require "test_helper"
+require 'test_helper'
 
 class HeaderMenuComponentTest < ViewComponent::TestCase
   it '正しく表示される' do
-    render_inline(HeaderMenuComponent.new())
+    render_inline(HeaderMenuComponent.new)
     dots = page.find('img')
     expect(dots[:src]).must_include 'icon_three_dots'
 

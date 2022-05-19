@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 class SessionsController < ApplicationController
   skip_before_action :check_logged_in, only: :create
 
   def create
-    if user = User.find_by(email: user_params[:email])
+    if (user = User.find_by(email: user_params[:email]))
       log_in user
       redirect_to repetitive_tasks_path
     else
@@ -20,7 +22,7 @@ class SessionsController < ApplicationController
   def user_params
     {
       name: auth_hash.info.name,
-      email: auth_hash.info.email,
+      email: auth_hash.info.email
     }
   end
 

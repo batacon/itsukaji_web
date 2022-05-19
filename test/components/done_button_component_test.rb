@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "test_helper"
+require 'test_helper'
 
 class DoneButtonComponentTest < ViewComponent::TestCase
   before { render_inline(DoneButtonComponent.new(repetitive_task:)) }

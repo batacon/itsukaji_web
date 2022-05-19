@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class RepetitiveTask < ApplicationRecord
   belongs_to :user_group
 
-  has_many :logs, ->{order(date: :desc)}, class_name: 'RepetitiveTaskLog', dependent: :destroy
+  has_many :logs, -> { order(date: :desc) }, class_name: 'RepetitiveTaskLog', dependent: :destroy
 
   validates :name, presence: true, length: { maximum: 20 }
   validates :interval_days, presence: true, numericality: { greater_than: 0, less_than: 1000 }
@@ -44,7 +46,7 @@ class RepetitiveTask < ApplicationRecord
     return 0 if never_done?
 
     number_of_days = (interval_days - days_since_last_done).to_i
-    number_of_days < 0 ? 0 : number_of_days
+    number_of_days.negative? ? 0 : number_of_days
   end
 
   def should_do_today?

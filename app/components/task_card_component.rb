@@ -18,7 +18,7 @@ class TaskCardComponent < ViewComponent::Base
 
   def every_interval_days
     interval_days = @repetitive_task.interval_days
-    interval_days > 1 ?  "every #{interval_days} days" : 'every day'
+    interval_days > 1 ? "every #{interval_days} days" : 'every day'
   end
 
   def should_do_today?

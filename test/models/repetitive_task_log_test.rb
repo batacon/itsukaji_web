@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class RepetitiveTaskLogTest < ActiveSupport::TestCase
   describe 'responses' do
@@ -20,13 +22,13 @@ class RepetitiveTaskLogTest < ActiveSupport::TestCase
     it 'dateが空ならバリデーションエラー' do
       repetitive_task_log.date = nil
       expect(repetitive_task_log.valid?).must_equal false
-      expect(repetitive_task_log.errors[:date]).must_include "を入力してください"
+      expect(repetitive_task_log.errors[:date]).must_include 'を入力してください'
     end
 
     it 'dateが未来の日付ならバリデーションエラー' do
       repetitive_task_log.date = Date.tomorrow
       expect(repetitive_task_log.valid?).must_equal false
-      expect(repetitive_task_log.errors[:date]).must_include "は今日以前の日付を指定してください"
+      expect(repetitive_task_log.errors[:date]).must_include 'は今日以前の日付を指定してください'
     end
   end
 

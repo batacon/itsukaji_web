@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class RepetitiveTaskTest < ActiveSupport::TestCase
   describe 'responses' do
@@ -30,31 +32,31 @@ class RepetitiveTaskTest < ActiveSupport::TestCase
     it 'nameが空ならバリデーションエラー' do
       repetitive_task.name = ''
       expect(repetitive_task.valid?).must_equal false
-      expect(repetitive_task.errors[:name]).must_include "を入力してください"
+      expect(repetitive_task.errors[:name]).must_include 'を入力してください'
     end
 
     it 'nameが21文字以上ならバリデーションエラー' do
       repetitive_task.name = 'a' * 21
       expect(repetitive_task.valid?).must_equal false
-      expect(repetitive_task.errors[:name]).must_include "は20文字以内で入力してください"
+      expect(repetitive_task.errors[:name]).must_include 'は20文字以内で入力してください'
     end
 
     it 'interval_daysが空ならバリデーションエラー' do
       repetitive_task.interval_days = nil
       expect(repetitive_task.valid?).must_equal false
-      expect(repetitive_task.errors[:interval_days]).must_include "を入力してください"
+      expect(repetitive_task.errors[:interval_days]).must_include 'を入力してください'
     end
 
     it 'interval_daysが0ならバリデーションエラー' do
       repetitive_task.interval_days = 0
       expect(repetitive_task.valid?).must_equal false
-      expect(repetitive_task.errors[:interval_days]).must_include "は0より大きい値にしてください"
+      expect(repetitive_task.errors[:interval_days]).must_include 'は0より大きい値にしてください'
     end
 
     it 'interval_daysが1000ならバリデーションエラー' do
       repetitive_task.interval_days = 1000
       expect(repetitive_task.valid?).must_equal false
-      expect(repetitive_task.errors[:interval_days]).must_include "は1000より小さい値にしてください"
+      expect(repetitive_task.errors[:interval_days]).must_include 'は1000より小さい値にしてください'
     end
   end
 

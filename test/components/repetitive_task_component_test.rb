@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "test_helper"
+require 'test_helper'
 
 class RepetitiveTaskComponentTest < ViewComponent::TestCase
   it '今日やったタスクが正しく表示される' do

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "test_helper"
+require 'test_helper'
 
 class RepetitiveTaskFormComponentTest < ViewComponent::TestCase
   it '新規作成フォームが正しく表示される' do

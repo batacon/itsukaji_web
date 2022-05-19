@@ -1,9 +1,12 @@
+# frozen_string_literal: true
+
 module SessionsHelper
   def current_user
     if (user_id = session[:user_id])
       @current_user ||= User.find_by(id: user_id)
     elsif (user_id = cookies.signed[:user_id])
-      return unless @current_user = User.find_and_authenticate(user_id, cookies[:remember_token])
+      return unless (@current_user = User.find_and_authenticate(user_id, cookies[:remember_token]))
+
       log_in @current_user
     end
   end

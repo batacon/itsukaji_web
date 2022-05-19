@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class UserGroupTest < ActiveSupport::TestCase
   let(:user_group) { user_groups(:one) }
@@ -20,7 +22,7 @@ class UserGroupTest < ActiveSupport::TestCase
     it 'owner_idがユニークでなければバリデーションエラー' do
       user_group.owner_id = users(:owner2).id
       expect(user_group.valid?).must_equal false
-      expect(user_group.errors[:owner_id]).must_include "はすでに存在します"
+      expect(user_group.errors[:owner_id]).must_include 'はすでに存在します'
     end
   end
 

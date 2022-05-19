@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "test_helper"
+require 'test_helper'
 
 class HeaderComponentTest < ViewComponent::TestCase
   it '正しく表示される' do

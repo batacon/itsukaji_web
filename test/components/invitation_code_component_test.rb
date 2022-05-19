@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "test_helper"
+require 'test_helper'
 
 class InvitationCodeComponentTest < ViewComponent::TestCase
   it 'current_userがownerである場合、正しく表示される' do

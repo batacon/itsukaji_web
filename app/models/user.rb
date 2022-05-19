@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   encrypts :name
   encrypts :email, deterministic: true
@@ -29,7 +31,7 @@ class User < ApplicationRecord
 
     def find_and_authenticate(user_id, remember_token)
       user = find_by(id: user_id)
-      return false unless user && user.authenticated?(remember_token)
+      return false unless user&.authenticated?(remember_token)
 
       user
     end
@@ -37,16 +39,16 @@ class User < ApplicationRecord
     private
 
     def valid_invitation?(inviter, invitation_code)
-      inviter && inviter.owner? && inviter.group.valid_invitation_code?(invitation_code)
+      inviter&.owner? && inviter.group.valid_invitation_code?(invitation_code)
     end
   end
 
   def owner?
-    group.owner.id == self.id
+    group.owner.id == id
   end
 
   def able_to_destroy?(target_user)
-    owner? && target_user.id != self.id  && target_user.member_of?(group)
+    owner? && target_user.id != id && target_user.member_of?(group)
   end
 
   def member_of?(group)

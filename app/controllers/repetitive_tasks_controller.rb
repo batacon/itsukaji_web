@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RepetitiveTasksController < ApplicationController
   before_action :set_repetitive_task, only: [:edit, :update, :destroy]
 
@@ -17,8 +19,7 @@ class RepetitiveTasksController < ApplicationController
     redirect_to :repetitive_tasks
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     @repetitive_task.update!(repetitive_task_params)

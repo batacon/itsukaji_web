@@ -36,7 +36,5 @@ class UserComponent < ViewComponent::Base
     @user.id == current_user.id
   end
 
-  def current_user
-    @current_user
-  end
+  attr_reader :current_user
 end

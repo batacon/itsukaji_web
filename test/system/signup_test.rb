@@ -1,7 +1,9 @@
-require "application_system_test_case"
+# frozen_string_literal: true
+
+require 'application_system_test_case'
 
 class SignupTest < ApplicationSystemTestCase
-  it "招待なしでオーナーとしてアカウント作成" do
+  it '招待なしでオーナーとしてアカウント作成' do
     visit root_path
     click_on 'Log in'
 
@@ -17,7 +19,7 @@ class SignupTest < ApplicationSystemTestCase
     assert_text '招待コード'
   end
 
-  it "招待ありでアカウント作成" do
+  it '招待ありでアカウント作成' do
     owner = users(:owner1)
     visit root_path
 

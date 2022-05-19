@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "test_helper"
+require 'test_helper'
 
 class TaskCardComponentTest < ViewComponent::TestCase
   it '今日やるべきタスクが正しく表示される' do

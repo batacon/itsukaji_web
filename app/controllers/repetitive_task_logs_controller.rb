@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RepetitiveTaskLogsController < ApplicationController
   before_action :set_repetitive_task
   before_action :set_repetitive_task_log, only: %i[update destroy]

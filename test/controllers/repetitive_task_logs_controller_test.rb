@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class RepetitiveTaskLogsControllerTest < ActionDispatch::IntegrationTest
   let(:repetitive_task) { repetitive_tasks(:done_yesterday) }

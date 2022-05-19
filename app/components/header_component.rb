@@ -7,7 +7,5 @@ class HeaderComponent < ViewComponent::Base
 
   private
 
-  def current_user
-    @current_user
-  end
+  attr_reader :current_user
 end

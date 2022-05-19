@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "test_helper"
+require 'test_helper'
 
 class UserComponentTest < ViewComponent::TestCase
   it '自分がオーナーとして正しく表示される' do

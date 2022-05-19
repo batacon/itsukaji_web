@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UserGroupsController < ApplicationController
   def index
     @user_group = UserGroup.find(current_user.group.id)
