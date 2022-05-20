@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
       log_in user
       redirect_to repetitive_tasks_path
     else
-      redirect_to welcome_index_path(user: user_params)
+      redirect_to welcome_path(user: user_params)
     end
   end
 

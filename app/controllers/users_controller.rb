@@ -15,7 +15,7 @@ class UsersController < ApplicationController
       return redirect_to repetitive_tasks_path
     end
     flash[:danger] = '招待者のGmailアドレスか招待コードが違います' # TODO: flashを表示
-    redirect_to welcome_index_path(user: user_params)
+    redirect_to welcome_path(user: user_params)
   end
 
   def destroy

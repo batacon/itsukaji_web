@@ -27,7 +27,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
             post users_path, params: user_params.merge(invitation_params)
           end
         end
-        assert_redirected_to welcome_index_path(user: user_params)
+        assert_redirected_to welcome_path(user: user_params)
       end
 
       it 'emailがオーナーのemailでない場合は、ユーザーは作成されず、welcomeページにリダイレクト' do
@@ -37,7 +37,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
             post users_path, params: user_params.merge(invitation_params)
           end
         end
-        assert_redirected_to welcome_index_path(user: user_params)
+        assert_redirected_to welcome_path(user: user_params)
       end
 
       it '招待コードが間違っている場合は、ユーザーは作成されず、welcomeページにリダイレクト' do
@@ -47,7 +47,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
             post users_path, params: user_params.merge(invitation_params)
           end
         end
-        assert_redirected_to welcome_index_path(user: user_params)
+        assert_redirected_to welcome_path(user: user_params)
       end
     end
 
