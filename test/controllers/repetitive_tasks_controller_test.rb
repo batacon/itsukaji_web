@@ -6,10 +6,14 @@ class RepetitiveTasksControllerTest < ActionDispatch::IntegrationTest
   include SessionsHelper
 
   let(:repetitive_task_params) { { name: 'test', interval_days: 1 } }
-  let(:repetitive_task) { repetitive_tasks(:done_today) }
 
   describe 'ログイン時' do
-    before { create_user_and_log_in }
+    before do
+      @current_user = create_user_and_log_in
+      @repetitive_task = @current_user.group.repetitive_tasks.create!(repetitive_task_params)
+    end
+
+    let(:other_groups_task) { repetitive_tasks(:done_today) }
 
     describe 'index' do
       it 'タスク一覧画面を正しく表示' do
@@ -48,14 +52,26 @@ class RepetitiveTasksControllerTest < ActionDispatch::IntegrationTest
 
     describe 'edit' do
       it 'タスク編集画面を表示' do
-        get edit_repetitive_task_path(repetitive_task)
+        get edit_repetitive_task_path(@repetitive_task)
         assert_response :success
+      end
+
+      it '他のグループのタスクは表示できない' do
+        get edit_repetitive_task_path(other_groups_task)
+        assert_redirected_to repetitive_tasks_path
       end
     end
 
     describe 'update' do
       it 'タスクを更新し、タスク一覧画面にリダイレクト' do
-        put repetitive_task_path(repetitive_task), params: { repetitive_task: { name: 'test2' } }
+        put repetitive_task_path(@repetitive_task), params: { repetitive_task: { name: 'test2' } }
+        expect(@repetitive_task.reload.name).must_equal 'test2'
+        assert_redirected_to repetitive_tasks_path
+      end
+
+      it '他のグループのタスクは更新できない' do
+        put repetitive_task_path(other_groups_task), params: { repetitive_task: { name: 'test2' } }
+        expect(other_groups_task.reload.name).wont_equal 'test2'
         assert_redirected_to repetitive_tasks_path
       end
     end
@@ -63,7 +79,14 @@ class RepetitiveTasksControllerTest < ActionDispatch::IntegrationTest
     describe 'destroy' do
       it 'タスクを削除し、タスク一覧画面にリダイレクト' do
         assert_difference 'RepetitiveTask.count', -1 do
-          delete repetitive_task_path(repetitive_task)
+          delete repetitive_task_path(@repetitive_task)
+        end
+        assert_redirected_to repetitive_tasks_path
+      end
+
+      it '他のグループのタスクは削除できない' do
+        assert_difference 'RepetitiveTask.count', 0 do
+          delete repetitive_task_path(other_groups_task)
         end
         assert_redirected_to repetitive_tasks_path
       end
@@ -71,6 +94,8 @@ class RepetitiveTasksControllerTest < ActionDispatch::IntegrationTest
   end
 
   describe 'ログアウト時' do
+    let(:repetitive_task) { repetitive_tasks(:done_today) }
+
     describe 'index' do
       it 'ログインしていなければトップページへリダイレクト' do
         get repetitive_tasks_path
@@ -104,6 +129,7 @@ class RepetitiveTasksControllerTest < ActionDispatch::IntegrationTest
     describe 'update' do
       it 'ログインしていなければトップページへリダイレクト' do
         put repetitive_task_path(repetitive_task), params: { repetitive_task: { name: 'test2' } }
+        expect(repetitive_task.reload.name).wont_equal 'test2'
         assert_redirected_to root_url
       end
     end

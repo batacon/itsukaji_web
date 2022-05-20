@@ -29,6 +29,7 @@ module ActiveSupport
 
     def create_user_and_log_in(name: 'test', email: 'xxxxx@example.com')
       post users_path, params: { name:, email: }
+      User.last
     end
   end
 end
