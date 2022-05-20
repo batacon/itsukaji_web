@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class UserGroup < ApplicationRecord
+  encrypts :invitation_code
+
   has_secure_token :invitation_code
   belongs_to :owner, class_name: 'User', foreign_key: 'owner_id', optional: true
 

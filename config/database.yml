@@ -82,5 +82,6 @@ test:
 production:
   <<: *default
   database: repetitive_task_manager_production
-  username: repetitive_task_manager
+  username: repetitive_task_manager_production_user
   password: <%= ENV["REPETITIVE_TASK_MANAGER_DATABASE_PASSWORD"] %>
+  host: <%= ENV["REPETITIVE_TASK_MANAGER_DATABASE_HOST"] %>
