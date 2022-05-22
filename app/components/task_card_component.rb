@@ -5,8 +5,8 @@ class TaskCardComponent < ViewComponent::Base
     @repetitive_task = repetitive_task
 
     @task_name = repetitive_task.name
-    @calendar_check_icon = should_do_today? ? 'icon_calendar_check_red.svg' : 'icon_calendar_check_blue.svg'
-    @bell_icon = should_do_today? ? 'icon_bell_red.svg' : 'icon_bell_blue.svg'
+    @calendar_icon   = should_do_today? ? 'icon_calendar_check_red.svg' : 'icon_calendar_check_blue.svg'
+    @bell_icon       = should_do_today? ? 'icon_bell_red.svg' : 'icon_bell_blue.svg'
     @days_until_next = should_do_today? ? 'やりましょう' : "あと #{repetitive_task.days_until_next}日"
   end
 

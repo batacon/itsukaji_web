@@ -4,7 +4,7 @@
         placeholder: 'タスク名で絞り込み',
         style: 'font-size: 12px; border: none; padding: 0 4px; margin: 0 8px;',
         id: 'search-input',
-        onblur: @submit
+        onblur: 'searchSubmit()'
   %>
 
   <%= form.submit '', id: 'search-submit' %>
@@ -13,10 +13,14 @@
 <script>
   document.getElementById('search-input').addEventListener('input', event => {
     if (event.isComposing) return;
-    <%= @submit %>
+    searchSubmit();
   })
 
   document.getElementById('search-input').addEventListener('compositionend', () => {
-    <%= @submit %>
+    searchSubmit();
   });
+
+  function searchSubmit() {
+    document.getElementById("search-submit").click();
+  }
 </script>

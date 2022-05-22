@@ -2,6 +2,7 @@
   <span class="mr-8">
     <%= @user_name %> <%= label %>
   </span>
+
   <% if can_leave_group? %>
     <%= button_to image_tag('icon_leave_group'), user_path(current_user),
           method: :delete,

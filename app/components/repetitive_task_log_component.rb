@@ -6,7 +6,6 @@ class RepetitiveTaskLogComponent < ViewComponent::Base
 
     @form_target = [repetitive_task_log.repetitive_task, repetitive_task_log]
     @form_submit_id = "log-form-submit-#{repetitive_task_log.id}"
-    @submit = "document.getElementById(\"#{@form_submit_id}\").click();"
   end
 
   private

@@ -7,9 +7,9 @@ class UserCreateFormSectionComponent < ViewComponent::Base
     @by_invitation = by_invitation
     @class_name = class_name
 
-    @heading = by_invitation ? '招待コードをお持ちの場合' : 'ひとりで使う、もしくは他の人を招待する場合'
+    @heading      = by_invitation ? '招待コードをお持ちの場合' : 'ひとりで使う、もしくは他の人を招待する場合'
     @submit_label = by_invitation ? '送信' : 'アカウント作成'
-    @icon_name = by_invitation ? 'icon_group' : 'icon_solo'
+    @icon_name    = by_invitation ? 'icon_group' : 'icon_solo'
   end
 
   private
