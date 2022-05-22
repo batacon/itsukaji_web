@@ -39,7 +39,7 @@ class RepetitiveTasksController < ApplicationController
   end
 
   def check_own_group
-    redirect_to repetitive_tasks_path unless @repetitive_task.user_group_id == current_user.group.id
+    redirect_to repetitive_tasks_path unless current_user.member_of?(@repetitive_task.user_group)
   end
 
   def repetitive_task_params
