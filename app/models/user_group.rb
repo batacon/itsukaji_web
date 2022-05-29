@@ -8,6 +8,7 @@ class UserGroup < ApplicationRecord
 
   has_many :users, dependent: :destroy, foreign_key: 'group_id'
   has_many :repetitive_tasks, dependent: :destroy
+  has_many :activity_logs, -> { order(:created_at) }, dependent: :destroy
 
   validates :owner_id, uniqueness: true
 

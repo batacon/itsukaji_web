@@ -12,6 +12,8 @@ class User < ApplicationRecord
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true
 
+  # TODO: 最近activity_logを見たtimeを保存するカラムを追加
+
   class << self
     def create_by_invitation(user_params, invitation_params)
       inviter = User.find_by(email: invitation_params[:inviter_email])

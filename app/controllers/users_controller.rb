@@ -18,6 +18,7 @@ class UsersController < ApplicationController
     redirect_to welcome_path(user: user_params)
   end
 
+  # TODO: アクティビティログを残すなら、論理削除にした方が良いかも？
   def destroy
     target_user = User.find(params[:id])
     if target_user.id == current_user.id

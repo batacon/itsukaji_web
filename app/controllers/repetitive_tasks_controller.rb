@@ -27,6 +27,7 @@ class RepetitiveTasksController < ApplicationController
     redirect_to :repetitive_tasks
   end
 
+  # TODO: アクティビティログを残すなら、論理削除にした方が良いかも？
   def destroy
     @repetitive_task.destroy!
     redirect_to :repetitive_tasks
