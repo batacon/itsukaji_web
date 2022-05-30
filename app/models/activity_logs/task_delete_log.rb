@@ -7,7 +7,7 @@ module ActivityLogs
     validates :task_name, presence: true
 
     def text
-      "#{activity_log.user.name}さんが「#{task_name}」を削除しました"
+      "#{activity_log.user.name}さんが「#{task_name}」を削除しました。"
     end
   end
 end

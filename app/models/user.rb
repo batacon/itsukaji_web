@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_secure_token :remember_token
 
   belongs_to :group, class_name: 'UserGroup', foreign_key: 'group_id'
+  has_many :activity_logs, -> { order(created_at: :desc) }, dependent: :destroy
 
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true

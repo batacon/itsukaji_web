@@ -1,0 +1,9 @@
+<h1 class="flex items-center mb-3 text-lg font-bold text-primary">
+  <%= image_tag 'icon_activity_blue', class: 'mr-2' %>
+  アクティビティログ
+</h1>
+
+<ul class="space-y-6 py-3">
+  <%= render(ActivityLogComponent.with_collection(@activity_logs)) %>
+</ul>
+

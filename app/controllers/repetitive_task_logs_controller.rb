@@ -5,7 +5,14 @@ class RepetitiveTaskLogsController < ApplicationController
   before_action :set_repetitive_task_log, only: %i[update destroy]
 
   def create
-    @repetitive_task.logs.create!(date: Date.today)
+    ActiveRecord::Base.transaction do
+      @repetitive_task.logs.create!(date: Date.today)
+      ActivityLog.create!(
+        user_group: current_user.group,
+        user: current_user,
+        loggable: ActivityLogs::TaskDoneLog.new(repetitive_task: @repetitive_task)
+      )
+    end
     respond_to(&:turbo_stream)
   end
 

@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   post 'search', to: 'search#search'
 
   resources :sessions, only: %i[create destroy]
+  resources :activity_logs, only: :index
   resources :users, only: %i[create destroy]
   resources :user_groups, only: %i[index update destroy]
   resources :repetitive_tasks, only: %i[index new create edit update destroy] do

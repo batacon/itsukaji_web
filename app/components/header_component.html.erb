@@ -7,7 +7,10 @@
         <%= render(SearchFormComponent.new()) %>
       <% end %>
 
-      <%= render(HeaderMenuComponent.new()) %>
+      <div class="flex items-center">
+        <%= link_to image_tag('icon_activity_white'), activity_logs_path, class: 'mr-3' %>
+        <%= render(HeaderMenuComponent.new()) %>
+      </div>
     <% end %>
   </div>
 </header>

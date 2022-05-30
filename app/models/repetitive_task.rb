@@ -5,6 +5,7 @@ class RepetitiveTask < ApplicationRecord
 
   has_many :logs, -> { order(date: :desc) }, class_name: 'RepetitiveTaskLog', dependent: :destroy
   has_many :task_create_logs, dependent: :destroy, class_name: 'ActivityLogs::TaskCreateLog'
+  has_many :task_done_logs, dependent: :destroy, class_name: 'ActivityLogs::TaskDoneLog'
 
   validates :name, presence: true, length: { maximum: 20 }
   validates :interval_days, presence: true, numericality: { greater_than: 0, less_than: 1000 }
