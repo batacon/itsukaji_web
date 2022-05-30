@@ -3,10 +3,14 @@
 require 'test_helper'
 
 class ActivityLogComponentTest < ViewComponent::TestCase
-  def test_component_renders_something_useful
-    # assert_equal(
-    #   %(<span>Hello, components!</span>),
-    #   render_inline(ActivityLogComponent.new(message: "Hello, components!")).css("span").to_html
-    # )
+  it '今日やったタスクが正しく表示される' do
+    user = users(:member1_of_group1)
+    user_group = user.group
+    repetitive_task = repetitive_tasks(:without_logs)
+    activity_log = ActivityLog.create!(user:, user_group:, loggable: ActivityLogs::TaskDoneLog.new(repetitive_task:) )
+
+    render_inline(ActivityLogComponent.new(activity_log:))
+    assert_text activity_log.text
+    assert_text activity_log.created_at.strftime('%Y-%m-%d %H:%M')
   end
 end
