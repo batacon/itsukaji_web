@@ -6,7 +6,7 @@ class TaskCreateLogTest < ActiveSupport::TestCase
   let(:user) { users(:member1_of_group1) }
   let(:user_group) { user.group }
   let(:repetitive_task) { repetitive_tasks(:without_logs) }
-  let(:activity_log) { ActivityLog.create!(user:, user_group:, loggable: ActivityLogs::TaskCreateLog.new(repetitive_task:) ) }
+  let(:activity_log) { ActivityLog.create!(user:, user_group:, loggable: ActivityLogs::TaskCreateLog.new(repetitive_task:)) }
 
   describe 'responses' do
     it 'responses correctly' do

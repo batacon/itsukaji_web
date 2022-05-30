@@ -1,5 +1,5 @@
 <header class="p-3 bg-primary">
-  <div class="flex items-center justify-between gap-1">
+  <div class="max-w-md mx-auto flex items-center justify-between gap-1">
     <%= link_to image_tag('header_logo.png'), repetitive_tasks_path, class: 'w-20' %>
 
     <% if current_user %>
@@ -8,7 +8,7 @@
       <% end %>
 
       <div class="flex items-center">
-        <%= link_to image_tag('icon_activity_white'), activity_logs_path, class: 'mr-3' %>
+        <%= link_to image_tag(activity_icon), activity_logs_path, class: 'mr-3' %>
         <%= render(HeaderMenuComponent.new()) %>
       </div>
     <% end %>

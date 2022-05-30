@@ -11,6 +11,5 @@ class ActivityLogsController < ApplicationController
 
   def update_check_activity_logs_at
     current_user.update!(last_check_activity_logs_at: Time.zone.now)
-    @activity_logs = ActivityLog.for_notification_of_group(current_user.group)
   end
 end

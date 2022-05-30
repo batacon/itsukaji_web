@@ -62,6 +62,10 @@ class User < ApplicationRecord
     self.remember_token == remember_token
   end
 
+  def activity_to_highlight_exists?
+    group.activity_logs.should_highlight_for(self).exists?
+  end
+
   private
 
   def set_last_check_activity_logs_at

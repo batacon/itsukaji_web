@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddLastCheckActivityLogsAtToUsers < ActiveRecord::Migration[7.0]
   def up
     add_column :users, :last_check_activity_logs_at, :datetime
