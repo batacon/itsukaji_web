@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_29_144712) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_30_010424) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -47,6 +47,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_29_144712) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["repetitive_task_id"], name: "index_task_create_logs_on_repetitive_task_id"
+  end
+
+  create_table "task_delete_logs", force: :cascade do |t|
+    t.string "task_name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "task_done_logs", force: :cascade do |t|
