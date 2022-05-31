@@ -13,7 +13,7 @@ class User < ApplicationRecord
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true
 
-  # TODO: 最近activity_logを見たtimeを保存するカラムを追加
+  before_create :set_last_check_activity_logs_at
 
   class << self
     def create_by_invitation(user_params, invitation_params)
@@ -60,5 +60,11 @@ class User < ApplicationRecord
 
   def authenticated?(remember_token)
     self.remember_token == remember_token
+  end
+
+  private
+
+  def set_last_check_activity_logs_at
+    self.last_check_activity_logs_at = Time.zone.now
   end
 end
