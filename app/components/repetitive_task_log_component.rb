@@ -10,8 +10,13 @@ class RepetitiveTaskLogComponent < ViewComponent::Base
 
   private
 
+  def save_log_date
+    # repetitive_task_log_component.html.erbのscriptタグ内に書くと他のコンポーネントのイベントが発火することがあるため
+    "document.getElementById('#{@form_submit_id}').click();"
+  end
+
   def next_date_of_previous_log
-    return if @repetitive_task_log.previous_log_date.nil?
+    return Date.new(2022, 1, 1) if @repetitive_task_log.previous_log_date.nil?
 
     @repetitive_task_log.previous_log_date + 1
   end

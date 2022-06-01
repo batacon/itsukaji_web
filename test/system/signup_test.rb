@@ -20,11 +20,11 @@ class SignupTest < ApplicationSystemTestCase
   end
 
   it '招待ありでアカウント作成' do
-    owner = users(:owner1)
     visit root_path
+    click_on 'Log in'
 
     # 招待コード入力画面
-    click_on 'Log in'
+    owner = users(:owner1)
     fill_in :inviter_email, with: owner.email
     fill_in :invitation_code, with: owner.group.invitation_code
     click_on '送信'

@@ -3,7 +3,7 @@
     <%= form.date_field :date,
           min: next_date_of_previous_log,
           max: previous_date_of_next_log,
-          onchange: 'saveLogDate()',
+          onchange: save_log_date,
           required: true,
           style: 'border: none; width: 150px;'
     %>
@@ -11,9 +11,3 @@
     <%= form.submit '', id: @form_submit_id %>
   <% end %>
 </li>
-
-<script>
-  function saveLogDate() {
-    document.getElementById("<%= @form_submit_id %>").click();
-  }
-</script>

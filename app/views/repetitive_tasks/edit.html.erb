@@ -1,5 +1,5 @@
 <div class="flex flex-row items-center justify-between mb-8">
-  <%= link_to image_tag('icon_back'), repetitive_tasks_path %>
+  <%= link_to image_tag('icon_back'), repetitive_tasks_path, id: 'back-link' %>
   <%= button_to image_tag('icon_garbage'), repetitive_task_path(@repetitive_task),
         method: :delete,
         form: { data: { turbo_confirm: "タスクを削除しますか？" } }
