@@ -14,6 +14,9 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true
 
   before_create :set_last_check_activity_logs_at
+  # before_destroy :create_activity_logs_for_group_member_removed_log
+
+  after_create :create_activity_logs_for_group_member_added_log
 
   class << self
     def create_by_invitation(user_params, invitation_params)
@@ -71,4 +74,21 @@ class User < ApplicationRecord
   def set_last_check_activity_logs_at
     self.last_check_activity_logs_at = Time.zone.now
   end
+
+  def create_activity_logs_for_group_member_added_log
+    ActivityLog.create!(
+      user_group: group,
+      user: self,
+      loggable: ActivityLogs::GroupMemberAddedLog.new
+    )
+  end
+
+  # TODO: ActivityLogがbelongs_to :userなので、論理削除にする必要がある
+  # def create_activity_logs_for_group_member_removed_log
+  #   ActivityLog.create!(
+  #     user_group: group,
+  #     user: self,
+  #     loggable: ActivityLogs::GroupMemberRemovedLog.new(user_name: name)
+  #   )
+  # end
 end

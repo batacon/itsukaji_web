@@ -3,6 +3,8 @@
 class UsersController < ApplicationController
   skip_before_action :check_logged_in, only: :create
 
+  # TODO: プロフィールページを作り、userのnameを変更できるようにし、退会ボタンを設置
+
   def create
     unless invited?
       user = User.create_with_group_as_owner!(user_params)

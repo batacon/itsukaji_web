@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_30_141339) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_01_141624) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -23,6 +23,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_30_141339) do
     t.datetime "updated_at", null: false
     t.index ["user_group_id"], name: "index_activity_logs_on_user_group_id"
     t.index ["user_id"], name: "index_activity_logs_on_user_id"
+  end
+
+  create_table "group_member_added_logs", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "repetitive_task_logs", force: :cascade do |t|
@@ -62,6 +67,22 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_30_141339) do
     t.index ["repetitive_task_id"], name: "index_task_done_logs_on_repetitive_task_id"
   end
 
+  create_table "task_log_date_change_logs", force: :cascade do |t|
+    t.date "from", null: false
+    t.date "to", null: false
+    t.bigint "repetitive_task_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["repetitive_task_id"], name: "index_task_log_date_change_logs_on_repetitive_task_id"
+  end
+
+  create_table "task_undone_logs", force: :cascade do |t|
+    t.bigint "repetitive_task_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["repetitive_task_id"], name: "index_task_undone_logs_on_repetitive_task_id"
+  end
+
   create_table "user_groups", force: :cascade do |t|
     t.bigint "owner_id"
     t.string "invitation_code", null: false
@@ -87,5 +108,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_30_141339) do
   add_foreign_key "repetitive_tasks", "user_groups"
   add_foreign_key "task_create_logs", "repetitive_tasks"
   add_foreign_key "task_done_logs", "repetitive_tasks"
+  add_foreign_key "task_log_date_change_logs", "repetitive_tasks"
+  add_foreign_key "task_undone_logs", "repetitive_tasks"
   add_foreign_key "users", "user_groups", column: "group_id"
 end

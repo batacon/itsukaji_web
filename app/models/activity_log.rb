@@ -4,10 +4,14 @@ class ActivityLog < ApplicationRecord
   belongs_to :user_group
   belongs_to :user
 
+  # TODO: ActivityLogs::GroupMemberRemovedLog
   DELEGATED_TYPES = %w[
     ActivityLogs::TaskCreateLog
     ActivityLogs::TaskDeleteLog
     ActivityLogs::TaskDoneLog
+    ActivityLogs::TaskUndoneLog
+    ActivityLogs::TaskLogDateChangeLog
+    ActivityLogs::GroupMemberAddedLog
   ].freeze
 
   delegated_type :loggable, dependent: :destroy, types: DELEGATED_TYPES
