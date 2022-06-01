@@ -14,7 +14,6 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true
 
   before_create :set_last_check_activity_logs_at
-  # before_destroy :create_activity_logs_for_group_member_removed_log
 
   after_create :create_activity_logs_for_group_member_added_log
 
@@ -82,13 +81,4 @@ class User < ApplicationRecord
       loggable: ActivityLogs::GroupMemberAddedLog.new
     )
   end
-
-  # TODO: ActivityLogがbelongs_to :userなので、論理削除にする必要がある
-  # def create_activity_logs_for_group_member_removed_log
-  #   ActivityLog.create!(
-  #     user_group: group,
-  #     user: self,
-  #     loggable: ActivityLogs::GroupMemberRemovedLog.new(user_name: name)
-  #   )
-  # end
 end
