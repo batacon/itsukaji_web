@@ -1,0 +1,15 @@
+<h1 class="flex items-center mb-3 text-lg font-bold text-primary">
+  <%= image_tag 'icon_solo', class: 'mr-2' %>
+  アカウント設定
+</h1>
+
+<%= form_with(model: @user) do |form| %>
+  <div class="flex flex-col mb-3">
+    <%= form.label '表示名(20文字以内)', class: 'mb-2 text-xs leading-none text-primary font-bold' %>
+    <%= form.text_field :name, maxlength: 20, required: true %>
+  </div>
+
+  <div class="flex flex-row-reverse">
+    <%= render(SubmitButtonComponent.new(form:, label: '保存')) %>
+  </div>
+<% end %>

@@ -3,21 +3,28 @@
 class UsersController < ApplicationController
   skip_before_action :check_logged_in, only: :create
 
-  # TODO: プロフィールページを作り、userのnameを変更できるようにし、退会ボタンを設置
-
   def create
     unless invited?
-      user = User.create_with_group_as_owner!(user_params)
+      user = User.create_with_group_as_owner!(create_user_params)
       log_in user
       return redirect_to repetitive_tasks_path
     end
 
-    if (user = User.create_by_invitation(user_params, invitation_params))
+    if (user = User.create_by_invitation(create_user_params, invitation_params))
       log_in user
       return redirect_to repetitive_tasks_path
     end
     flash[:danger] = '招待者のGmailアドレスか招待コードが違います' # TODO: flashを表示
-    redirect_to welcome_path(user: user_params)
+    redirect_to welcome_path(user: create_user_params)
+  end
+
+  def edit
+    @user = current_user
+  end
+
+  def update
+    current_user.update!(update_user_params)
+    redirect_to repetitive_tasks_path
   end
 
   # TODO: アクティビティログを残すなら、論理削除にした方が良いかも？
@@ -43,11 +50,15 @@ class UsersController < ApplicationController
     inviter&.group&.valid_invitation_code?(invitation_params[:invitation_code])
   end
 
-  def user_params
+  def create_user_params
     params.permit(:name, :email)
   end
 
   def invitation_params
     params.permit(:invitation_code, :inviter_email)
+  end
+
+  def update_user_params
+    params.require(:user).permit(:name)
   end
 end

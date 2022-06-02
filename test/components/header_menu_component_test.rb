@@ -9,9 +9,11 @@ class HeaderMenuComponentTest < ViewComponent::TestCase
     expect(dots[:src]).must_include 'icon_three_dots'
 
     a_tags = page.all('a')
-    expect(a_tags[0][:href]).must_equal '/user_groups'
-    expect(a_tags[0].text).must_equal '招待・共有設定'
-    expect(a_tags[1][:href]).must_equal '/log_out'
-    expect(a_tags[1].text).must_equal 'ログアウト'
+    expect(a_tags[0][:href]).must_equal '/account_settings'
+    expect(a_tags[0].text).must_equal 'アカウント設定'
+    expect(a_tags[1][:href]).must_equal '/user_groups'
+    expect(a_tags[1].text).must_equal '招待・共有設定'
+    expect(a_tags[2][:href]).must_equal '/log_out'
+    expect(a_tags[2].text).must_equal 'ログアウト'
   end
 end

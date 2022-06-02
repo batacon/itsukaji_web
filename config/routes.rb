@@ -9,10 +9,10 @@ Rails.application.routes.draw do
   get 'welcome', to: 'welcome#index'
   post 'search', to: 'search#search'
 
-  resources :sessions, only: %i[create destroy]
-  resources :activity_logs, only: :index
-  resources :users, only: %i[create destroy]
+  get 'account_settings', to: 'users#edit'
+  resources :users, only: %i[create update destroy]
   resources :user_groups, only: %i[index update destroy]
+  resources :activity_logs, only: :index
   resources :repetitive_tasks, only: %i[index new create edit update destroy] do
     resources :repetitive_task_logs, only: %i[create update destroy]
   end
