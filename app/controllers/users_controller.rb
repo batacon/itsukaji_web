@@ -4,18 +4,11 @@ class UsersController < ApplicationController
   skip_before_action :check_logged_in, only: :create
 
   def create
-    unless invited?
-      user = User.create_with_group_as_owner!(create_user_params)
-      log_in user
-      return redirect_to repetitive_tasks_path
-    end
+    user = invited? ? User.create_by_invitation(create_user_params, invitation_params) : User.create_with_group_as_owner!(create_user_params)
+    return redirect_to welcome_path(user: create_user_params) unless user
 
-    if (user = User.create_by_invitation(create_user_params, invitation_params))
-      log_in user
-      return redirect_to repetitive_tasks_path
-    end
-    flash[:danger] = '招待者のGmailアドレスか招待コードが違います' # TODO: flashを表示
-    redirect_to welcome_path(user: create_user_params)
+    log_in user
+    redirect_to repetitive_tasks_path
   end
 
   def edit
