@@ -4,7 +4,11 @@ class UsersController < ApplicationController
   skip_before_action :check_logged_in, only: :create
 
   def create
-    user = invited? ? User.create_by_invitation(create_user_params, invitation_params) : User.create_with_group_as_owner!(create_user_params)
+    user = if invited?
+             User.create_by_invitation(create_user_params, invitation_params)
+           else
+             User.create_with_group_as_owner!(create_user_params)
+           end
     return redirect_to welcome_path(user: create_user_params) unless user
 
     log_in user

@@ -20,7 +20,12 @@ class ActivityLogComponentTest < ViewComponent::TestCase
     other_user = users(:member2_of_group1)
     user_group = other_user.group
     repetitive_task = repetitive_tasks(:without_logs)
-    activity_log = ActivityLog.create!(user: other_user, user_group:, loggable: ActivityLogs::TaskDoneLog.new(repetitive_task:), created_at: Time.zone.now - 1.day)
+    activity_log = ActivityLog.create!(
+      user: other_user,
+      user_group:,
+      loggable: ActivityLogs::TaskDoneLog.new(repetitive_task:),
+      created_at: Time.zone.now - 1.day
+    )
 
     render_inline(ActivityLogComponent.new(activity_log:, current_user: user))
     assert_selector 'li.bg-yellow-50'

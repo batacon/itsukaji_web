@@ -13,7 +13,8 @@ class DoneButtonComponentTest < ViewComponent::TestCase
     end
 
     it 'クリックしたら今日のログを削除するようなフォームになっている' do
-      expect(page.find('form')[:action]).must_equal "/repetitive_tasks/#{repetitive_task.id}/repetitive_task_logs/#{repetitive_task.today_log.id}"
+      submit_path = "/repetitive_tasks/#{repetitive_task.id}/repetitive_task_logs/#{repetitive_task.today_log.id}"
+      expect(page.find('form')[:action]).must_equal submit_path
       expect(page.find_field(type: 'hidden')[:value]).must_equal 'delete'
     end
   end
