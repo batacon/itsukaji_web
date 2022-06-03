@@ -7,7 +7,8 @@ module ActivityLogs
     validates :task_name, presence: true
 
     def text
-      @text ||= "#{activity_log.user.name}さんが「#{task_name}」を削除しました。"
+      user_name = "#{activity_log.user.name}さん"
+      @text ||= "✂︎ #{bold(user_name)}が「#{bold(task_name)}」を削除しました。"
     end
   end
 end

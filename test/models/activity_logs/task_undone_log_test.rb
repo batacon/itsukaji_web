@@ -22,7 +22,9 @@ class TaskUndoneLogTest < ActiveSupport::TestCase
   describe 'instance methods' do
     describe '#text' do
       it 'returns correct text' do
-        expect(activity_log.text).must_equal("#{user.name}さんが「#{repetitive_task.name}」を未完了に戻しました。")
+        expect(activity_log.text).must_include("#{user.name}さん")
+        expect(activity_log.text).must_include(repetitive_task.name)
+        expect(activity_log.text).must_include('を未完了に戻しました。')
       end
     end
   end

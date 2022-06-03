@@ -11,7 +11,8 @@ class ActivityLogComponentTest < ViewComponent::TestCase
     activity_log = ActivityLog.create!(user:, user_group:, loggable: ActivityLogs::TaskDoneLog.new(repetitive_task:))
 
     render_inline(ActivityLogComponent.new(activity_log:, current_user: user))
-    assert_text activity_log.text
+    assert_text activity_log.loggable.repetitive_task.name
+    assert_text '完了しました！'
     assert_text activity_log.created_at.strftime('%Y-%m-%d %H:%M')
     assert_no_selector 'li.bg-yellow-50'
   end

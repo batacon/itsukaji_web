@@ -22,7 +22,9 @@ class TaskDeleteLogTest < ActiveSupport::TestCase
   describe 'instance methods' do
     describe '#text' do
       it 'returns correct text' do
-        expect(activity_log.text).must_equal("#{user.name}さんが「test」を削除しました。")
+        expect(activity_log.text).must_include("#{user.name}さん")
+        expect(activity_log.text).must_include('test')
+        expect(activity_log.text).must_include('を削除しました。')
       end
     end
   end

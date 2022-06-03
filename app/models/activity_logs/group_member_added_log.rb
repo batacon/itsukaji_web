@@ -5,7 +5,8 @@ module ActivityLogs
     include Loggable
 
     def text
-      @text ||= "#{activity_log.user.name}さんがグループに参加しました。"
+      user_name = "#{activity_log.user.name}さん"
+      @text ||= "⇨ #{bold(user_name)}がグループに参加しました。"
     end
   end
 end

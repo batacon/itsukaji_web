@@ -20,7 +20,8 @@ class GroupMemberAddedLogTest < ActiveSupport::TestCase
   describe 'instance methods' do
     describe '#text' do
       it 'returns correct text' do
-        expect(activity_log.text).must_equal("#{activity_log.user.name}さんがグループに参加しました。")
+        expect(activity_log.text).must_include(activity_log.user.name)
+        expect(activity_log.text).must_include('がグループに参加しました。')
       end
     end
   end

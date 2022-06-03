@@ -22,7 +22,9 @@ class TaskDoneLogTest < ActiveSupport::TestCase
   describe 'instance methods' do
     describe '#text' do
       it 'returns correct text' do
-        expect(activity_log.text).must_equal("#{user.name}さんが「#{repetitive_task.name}」を完了しました！")
+        expect(activity_log.text).must_include("#{user.name}さん")
+        expect(activity_log.text).must_include(repetitive_task.name)
+        expect(activity_log.text).must_include('を完了しました！')
       end
     end
   end

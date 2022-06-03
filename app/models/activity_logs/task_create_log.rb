@@ -7,7 +7,8 @@ module ActivityLogs
     belongs_to :repetitive_task
 
     def text
-      @text ||= "#{activity_log.user.name}さんが新タスク「#{repetitive_task.name}」を作成しました。"
+      user_name = "#{activity_log.user.name}さん"
+      @text ||= "✏️ #{bold(user_name)}が新タスク「#{bold(repetitive_task.name)}」を作成しました。"
     end
   end
 end

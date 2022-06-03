@@ -22,7 +22,10 @@ class TaskCreateLogTest < ActiveSupport::TestCase
   describe 'instance methods' do
     describe '#text' do
       it 'returns correct text' do
-        expect(activity_log.text).must_equal("#{user.name}さんが新タスク「#{repetitive_task.name}」を作成しました。")
+        expect(activity_log.text).must_include("#{user.name}さん")
+        expect(activity_log.text).must_include('新タスク')
+        expect(activity_log.text).must_include(repetitive_task.name)
+        expect(activity_log.text).must_include('を作成しました。')
       end
     end
   end

@@ -30,7 +30,9 @@ class TaskLogDateChangeLogTest < ActiveSupport::TestCase
   describe 'instance methods' do
     describe '#text' do
       it 'returns correct text' do
-        expect(activity_log.text).must_equal("#{activity_log.user.name}さんが「#{repetitive_task.name}」のやった！ログを#{from}から#{to}に変更しました。")
+        expect(activity_log.text).must_include("#{user.name}さん")
+        expect(activity_log.text).must_include(repetitive_task.name)
+        expect(activity_log.text).must_include("のやった！ログを#{from}から#{to}に変更しました。")
       end
     end
   end
