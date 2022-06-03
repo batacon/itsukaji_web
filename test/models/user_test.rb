@@ -29,6 +29,12 @@ class UserTest < ActiveSupport::TestCase
       expect(user.errors[:name]).must_include 'を入力してください'
     end
 
+    it 'nameが31文字以上ならバリデーションエラー' do
+      user.name = 'a' * 31
+      expect(user.valid?).must_equal false
+      expect(user.errors[:name]).must_include 'は30文字以内で入力してください'
+    end
+
     it 'emailが空ならバリデーションエラー' do
       user.email = ''
       expect(user.valid?).must_equal false

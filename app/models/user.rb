@@ -10,7 +10,7 @@ class User < ApplicationRecord
   belongs_to :group, class_name: 'UserGroup', foreign_key: 'group_id'
   has_many :activity_logs, -> { order(created_at: :desc) }, dependent: :destroy
 
-  validates :name, presence: true
+  validates :name, presence: true, length: { maximum: 30 }
   validates :email, presence: true, uniqueness: true
 
   before_create :set_last_check_activity_logs_at

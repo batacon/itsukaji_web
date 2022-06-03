@@ -5,8 +5,8 @@
 
 <%= form_with(model: @user) do |form| %>
   <div class="flex flex-col mb-3">
-    <%= form.label '表示名(20文字以内)', class: 'mb-2 text-xs leading-none text-primary font-bold' %>
-    <%= form.text_field :name, maxlength: 20, required: true %>
+    <%= form.label '表示名(30文字以内)', class: 'mb-2 text-xs leading-none text-primary font-bold' %>
+    <%= form.text_field :name, maxlength: 30, required: true %>
   </div>
 
   <div class="flex flex-row-reverse">
