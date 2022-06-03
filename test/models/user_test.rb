@@ -12,6 +12,7 @@ class UserTest < ActiveSupport::TestCase
       expect(user).must_respond_to(:remember_token)
       expect(user).must_respond_to(:group)
       expect(user).must_respond_to(:group_id)
+      expect(user).must_respond_to(:last_check_activity_logs_at)
     end
   end
 
@@ -155,5 +156,8 @@ class UserTest < ActiveSupport::TestCase
         expect(user.authenticated?('invalid_token')).must_equal false
       end
     end
+
+    # describe 'User#activity_to_highlight_exists?' do
+    # end
   end
 end
