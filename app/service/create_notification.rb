@@ -20,11 +20,15 @@ class CreateNotification
     request['Content-Type'] = 'application/json'
     request.body = {
       app_id: Rails.application.credentials.one_signal[:app_id],
-      # include_external_user_ids: [@user_id],
-      included_segments: ['Active Users'],
+      include_external_user_ids: [@user_id.to_s],
       contents: @contents
     }.to_json
+    puts '************▼OneSignal request▼************'
+    puts request
+    puts '************▲OneSignal request▲************'
     response = http.request(request)
+    puts '************▼OneSignal response▼************'
     puts response.read_body
+    puts '************▲OneSignal response▲************'
   end
 end

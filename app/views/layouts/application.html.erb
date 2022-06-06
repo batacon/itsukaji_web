@@ -21,6 +21,14 @@
         OneSignal.init({
           appId: "<%= Rails.application.credentials.one_signal[:app_id] %>"
         })
+
+        OneSignal.on('subscriptionChange', function (isSubscribed) {
+          if (isSubscribed) {
+            OneSignal.setExternalUserId("<%= current_user.id %>");
+          } else {
+            OneSignal.removeExternalUserId();
+          }
+        });
       });
     </script>
   </head>
