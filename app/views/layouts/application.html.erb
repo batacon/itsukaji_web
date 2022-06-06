@@ -14,6 +14,15 @@
     <%= favicon_link_tag 'android-chrome-192x192.png', rel: "android-touch-icon", type: "image/png" %>
 
     <script defer src="https://unpkg.com/alpinejs@3.10.2/dist/cdn.min.js"></script>
+    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+    <script>
+      window.OneSignal = window.OneSignal || [];
+      OneSignal.push(function() {
+        OneSignal.init({
+          appId: "<%= Rails.application.credentials.one_signal[:app_id] %>"
+        })
+      });
+    </script>
   </head>
   <body>
     <%# TODO: flashを表示 %>
