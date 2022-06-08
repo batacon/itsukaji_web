@@ -4,9 +4,9 @@ require 'uri'
 require 'net/http'
 
 class CreateNotification
-  def initialize(contents:, user_id:)
+  def initialize(contents:, target_user_ids:)
     @contents = contents
-    @user_id = user_id
+    @target_user_ids = target_user_ids.map(&:to_s)
   end
 
   def call
@@ -20,11 +20,11 @@ class CreateNotification
     request['Content-Type'] = 'application/json'
     request.body = {
       app_id: Rails.application.credentials.one_signal[:app_id],
-      include_external_user_ids: [@user_id.to_s],
+      include_external_user_ids: @target_user_ids,
       contents: @contents
     }.to_json
     puts '************▼OneSignal request▼************'
-    puts request
+    puts request.body
     puts '************▲OneSignal request▲************'
     response = http.request(request)
     puts '************▼OneSignal response▼************'

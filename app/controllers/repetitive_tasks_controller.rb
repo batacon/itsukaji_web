@@ -22,7 +22,6 @@ class RepetitiveTasksController < ApplicationController
         loggable: ActivityLogs::TaskCreateLog.new(repetitive_task: task)
       )
     end
-    CreateNotification.new(contents: { 'en' => 'task created!', 'ja' => 'タスクが作成されました！' }, user_id: current_user.id).call
     redirect_to :repetitive_tasks
   end
 
@@ -42,7 +41,6 @@ class RepetitiveTasksController < ApplicationController
       )
       @repetitive_task.destroy!
     end
-    CreateNotification.new(contents: { 'en' => 'task deleted!', 'ja' => 'タスクが削除されました！' }, user_id: current_user.id).call
     redirect_to :repetitive_tasks
   end
 
