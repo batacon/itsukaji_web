@@ -4,17 +4,26 @@ require 'uri'
 require 'net/http'
 
 class CreateNotification
+  URL = URI('https://onesignal.com/api/v1/notifications')
+
   def initialize(contents:, target_user_ids:)
     @contents = contents
     @target_user_ids = target_user_ids.map(&:to_s)
   end
 
   def call
-    url = URI('https://onesignal.com/api/v1/notifications')
-    http = Net::HTTP.new(url.host, url.port)
+    http = Net::HTTP.new(URL.host, URL.port)
     http.use_ssl = true
+    response = http.request(onesignal_request)
+    puts '************▼OneSignal response▼************'
+    puts response.read_body
+    puts '************▲OneSignal response▲************'
+  end
 
-    request = Net::HTTP::Post.new(url)
+  private
+
+  def onesignal_request
+    request = Net::HTTP::Post.new(URL)
     request['Accept'] = 'application/json'
     request['Authorization'] = "Basic #{Rails.application.credentials.one_signal[:rest_api_key]}"
     request['Content-Type'] = 'application/json'
@@ -26,9 +35,6 @@ class CreateNotification
     puts '************▼OneSignal request▼************'
     puts request.body
     puts '************▲OneSignal request▲************'
-    response = http.request(request)
-    puts '************▼OneSignal response▼************'
-    puts response.read_body
-    puts '************▲OneSignal response▲************'
+    request
   end
 end
