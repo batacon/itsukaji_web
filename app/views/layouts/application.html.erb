@@ -15,22 +15,6 @@
 
     <script defer src="https://unpkg.com/alpinejs@3.10.2/dist/cdn.min.js"></script>
     <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
-    <script>
-      window.OneSignal = window.OneSignal || [];
-      OneSignal.push(function() {
-        OneSignal.init({
-          appId: "<%= Rails.application.credentials.one_signal[:app_id] %>"
-        })
-
-        OneSignal.on('subscriptionChange', function (isSubscribed) {
-          if (isSubscribed) {
-            OneSignal.setExternalUserId("<%= current_user.id %>");
-          } else {
-            OneSignal.removeExternalUserId();
-          }
-        });
-      });
-    </script>
   </head>
   <body>
     <%# TODO: flashを表示 %>

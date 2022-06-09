@@ -3,3 +3,26 @@
 <% end %>
 
 <%= link_to image_tag('rounded_plus'), new_repetitive_task_path, class: 'fixed right-8 bottom-8', id: 'create-task' %>
+
+
+<script>
+  window.OneSignal = window.OneSignal || [];
+  window.isOnesignalInitialized; // 初回のみOneSignal.initを実行したい
+
+  OneSignal.push(function() {
+    if (!window.isOnesignalInitialized) {
+      OneSignal.init({
+        appId: "<%= Rails.application.credentials.one_signal[:app_id] %>"
+      })
+      window.isOnesignalInitialized = true;
+    }
+
+    OneSignal.on('subscriptionChange', function (isSubscribed) {
+      if (isSubscribed) {
+        OneSignal.setExternalUserId("<%= current_user.id %>");
+      } else {
+        OneSignal.removeExternalUserId();
+      }
+    });
+  });
+</script>
