@@ -1,5 +1,5 @@
 <div>
-  <h1 class="mb-8 font-bold text-xl">はじめまして、<%= @name %>さん！</h1>
+  <h1 class="mb-8 font-bold text-xl">ようこそ、<%= @name %>さん！</h1>
 
   <%= render(UserCreateFormSectionComponent.new(name: @name, email: @email, by_invitation: true, class_name: 'mb-10')) %>
 

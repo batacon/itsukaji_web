@@ -6,5 +6,7 @@
     <%= render(UserComponent.with_collection(@users, current_user:)) %>
   </ul>
 
-  <%= render(WithdrawButtonComponent.new(current_user:, class_name: 'mt-20'))%>
+  <% if current_user.owner? %>
+    <%= render(WithdrawButtonComponent.new(label: 'グループ解散', current_user:, class_name: 'mt-96'))%>
+  <% end %>
 </div>

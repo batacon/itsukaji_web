@@ -16,7 +16,6 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = current_user
   end
 
   def update
@@ -41,10 +40,6 @@ class UsersController < ApplicationController
 
   def invited?
     !invitation_params[:invitation_code].nil? && !invitation_params[:inviter_email].nil?
-  end
-
-  def valid_invitation?(inviter)
-    inviter&.group&.valid_invitation_code?(invitation_params[:invitation_code])
   end
 
   def create_user_params

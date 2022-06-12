@@ -1,5 +1,5 @@
-<%= button_to '退会', user_group_path(current_user.group),
+<%= button_to @label, deletion_target_path,
       method: :delete,
       class: "#{@class_name} text-red-600 border border-red-600 rounded p-1",
-      form: { data: { turbo_confirm: '注意！！オーナーであるあなたが退会すると、タスクを共有しているユーザー全員も退会します。登録したタスクのデータはすべて消え、復元できません。本当に退会しますか？' } }
+      form: { data: { turbo_confirm: confirm_message } }
 %>
