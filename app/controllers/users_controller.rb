@@ -15,8 +15,7 @@ class UsersController < ApplicationController
     redirect_to repetitive_tasks_path
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     current_user.update!(update_user_params)

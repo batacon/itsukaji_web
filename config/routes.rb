@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get 'auth/failure', to: redirect('/')
   get 'log_out', to: 'sessions#destroy', as: 'log_out'
   get 'welcome', to: 'welcome#index'
+  get 'privacy_policy', to: 'static_pages#privacy_policy'
   post 'search', to: 'search#search'
 
   get 'account_settings', to: 'users#edit'
