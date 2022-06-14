@@ -10,7 +10,6 @@ class WithdrawButtonComponent < ViewComponent::Base
   MESSAGE
 
   MESSAGE_FOR_SINGLE_OWNER = <<~MESSAGE
-    <<~MESSAGE
     注意！！退会すると、登録したタスクに関するデータはすべて削除され、復元できません。
 
     本当に退会しますか？
