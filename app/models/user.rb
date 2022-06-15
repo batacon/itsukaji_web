@@ -17,6 +17,8 @@ class User < ApplicationRecord
 
   after_create :create_activity_logs_for_group_member_added_log
 
+  ADMIN_EMAIL = Rails.application.credentials.email[:admin]
+
   class << self
     def create_by_invitation(user_params, invitation_params)
       inviter = User.find_by(email: invitation_params[:inviter_email])
@@ -66,6 +68,10 @@ class User < ApplicationRecord
 
   def activity_to_highlight_exists?
     group.activity_logs.should_highlight_for(self).exists?
+  end
+
+  def admin?
+    email == ADMIN_EMAIL
   end
 
   private

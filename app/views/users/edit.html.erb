@@ -15,3 +15,10 @@
 <% end %>
 
 <%= render(WithdrawButtonComponent.new(label: '退会', current_user:, class_name: 'mt-96'))%>
+
+<% if current_user.admin? %>
+  <div class="mt-20">
+    現在のユーザー数: <%= User.count %>
+    現在の総タスク数: <%= RepetitiveTask.count %>
+  </div>
+<% end %>
