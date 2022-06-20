@@ -41,7 +41,7 @@ class WithdrawButtonComponent < ViewComponent::Base
   end
 
   def deletion_target_path
-    return  user_group_path(@current_user.group) if @current_user.owner?
+    return user_group_path(@current_user.group) if @current_user.owner?
 
     user_path(@current_user)
   end
