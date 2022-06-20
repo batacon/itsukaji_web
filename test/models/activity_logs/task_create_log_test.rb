@@ -15,6 +15,8 @@ class TaskCreateLogTest < ActiveSupport::TestCase
       expect(activity_log).must_respond_to(:user_group)
       expect(activity_log).must_respond_to(:user)
       expect(activity_log).must_respond_to(:text)
+      expect(activity_log).must_respond_to(:emoji)
+      expect(activity_log).must_respond_to(:should_highlight_for?)
       expect(activity_log.loggable).must_respond_to(:repetitive_task)
     end
   end
@@ -22,7 +24,6 @@ class TaskCreateLogTest < ActiveSupport::TestCase
   describe 'instance methods' do
     describe '#text' do
       it 'returns correct text' do
-        expect(activity_log.text).must_include("#{user.name}さん")
         expect(activity_log.text).must_include('新タスク')
         expect(activity_log.text).must_include(repetitive_task.name)
         expect(activity_log.text).must_include('を作成しました。')

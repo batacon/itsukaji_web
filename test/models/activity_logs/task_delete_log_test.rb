@@ -15,6 +15,8 @@ class TaskDeleteLogTest < ActiveSupport::TestCase
       expect(activity_log).must_respond_to(:user_group)
       expect(activity_log).must_respond_to(:user)
       expect(activity_log).must_respond_to(:text)
+      expect(activity_log).must_respond_to(:emoji)
+      expect(activity_log).must_respond_to(:should_highlight_for?)
       expect(activity_log.loggable).must_respond_to(:task_name)
     end
   end
@@ -22,7 +24,6 @@ class TaskDeleteLogTest < ActiveSupport::TestCase
   describe 'instance methods' do
     describe '#text' do
       it 'returns correct text' do
-        expect(activity_log.text).must_include("#{user.name}さん")
         expect(activity_log.text).must_include('test')
         expect(activity_log.text).must_include('を削除しました。')
       end

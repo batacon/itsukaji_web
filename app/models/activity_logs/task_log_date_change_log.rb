@@ -9,9 +9,12 @@ module ActivityLogs
     validates :from, presence: true
     validates :to, presence: true
 
+    def emoji
+      '⏰'
+    end
+
     def text
-      user_name = "#{activity_log.user.name}さん"
-      @text ||= "⏰ #{bold(user_name)}が「#{bold(repetitive_task.name)}」のやった！ログを#{from}から#{to}に変更しました。"
+      @text ||= "が「#{repetitive_task.name}」のやった！ログを#{from}から#{to}に変更しました。"
     end
   end
 end

@@ -1,4 +1,8 @@
 <li class="p-2 <%= if highlighted? then 'bg-yellow-50' end %>">
-  <div class="text-sm"><%= sanitize(@activity_log_text) %></div>
-  <div class="text-xs text-gray-500"><%= @activity_log_datetime %></div>
+  <div class="text-sm">
+    <%= @emoji %> <b><%= @user_name %>さん</b><%= @activity_log_text %>
+  </div>
+  <div class="text-xs text-gray-500">
+    <%= @datetime %>
+  </div>
 </li>

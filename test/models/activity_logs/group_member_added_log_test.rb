@@ -14,13 +14,14 @@ class GroupMemberAddedLogTest < ActiveSupport::TestCase
       expect(activity_log).must_respond_to(:user_group)
       expect(activity_log).must_respond_to(:user)
       expect(activity_log).must_respond_to(:text)
+      expect(activity_log).must_respond_to(:emoji)
+      expect(activity_log).must_respond_to(:should_highlight_for?)
     end
   end
 
   describe 'instance methods' do
     describe '#text' do
       it 'returns correct text' do
-        expect(activity_log.text).must_include(activity_log.user.name)
         expect(activity_log.text).must_include('がグループに参加しました。')
       end
     end

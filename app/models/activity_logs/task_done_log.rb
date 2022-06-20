@@ -6,9 +6,12 @@ module ActivityLogs
 
     belongs_to :repetitive_task
 
+    def emoji
+      '✅'
+    end
+
     def text
-      user_name = "#{activity_log.user.name}さん"
-      @text ||= "✅ #{bold(user_name)}が「#{bold(repetitive_task.name)}」を完了しました！"
+      @text ||= "が「#{repetitive_task.name}」を完了しました！"
     end
   end
 end

@@ -15,6 +15,7 @@ class ActivityLog < ApplicationRecord
   ].freeze
 
   delegated_type :loggable, dependent: :destroy, types: DELEGATED_TYPES
+  delegate :emoji, to: :loggable
   delegate :text, to: :loggable
 
   scope :for_notification_of_group, ->(group) { where(user_group: group).order(created_at: :desc).limit(50) }

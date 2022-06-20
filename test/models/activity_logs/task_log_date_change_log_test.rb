@@ -21,6 +21,8 @@ class TaskLogDateChangeLogTest < ActiveSupport::TestCase
       expect(activity_log).must_respond_to(:user_group)
       expect(activity_log).must_respond_to(:user)
       expect(activity_log).must_respond_to(:text)
+      expect(activity_log).must_respond_to(:emoji)
+      expect(activity_log).must_respond_to(:should_highlight_for?)
       expect(activity_log.loggable).must_respond_to(:repetitive_task)
       expect(activity_log.loggable).must_respond_to(:from)
       expect(activity_log.loggable).must_respond_to(:to)
@@ -30,7 +32,6 @@ class TaskLogDateChangeLogTest < ActiveSupport::TestCase
   describe 'instance methods' do
     describe '#text' do
       it 'returns correct text' do
-        expect(activity_log.text).must_include("#{user.name}さん")
         expect(activity_log.text).must_include(repetitive_task.name)
         expect(activity_log.text).must_include("のやった！ログを#{from}から#{to}に変更しました。")
       end
