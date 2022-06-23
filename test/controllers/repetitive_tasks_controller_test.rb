@@ -33,7 +33,9 @@ class RepetitiveTasksControllerTest < ActionDispatch::IntegrationTest
       it 'last_done_at無しなら、タスクのみを作成し、タスク一覧画面にリダイレクト' do
         assert_difference 'RepetitiveTask.count', 1 do
           assert_difference 'RepetitiveTaskLog.count', 0 do
-            post repetitive_tasks_path, params: { repetitive_task: repetitive_task_params }
+            assert_difference 'ActivityLogs::TaskCreateLog.count', 1 do
+              post repetitive_tasks_path, params: { repetitive_task: repetitive_task_params }
+            end
           end
         end
         assert_redirected_to repetitive_tasks_path
@@ -43,7 +45,9 @@ class RepetitiveTasksControllerTest < ActionDispatch::IntegrationTest
         last_done_at = Date.yesterday
         assert_difference 'RepetitiveTask.count', 1 do
           assert_difference 'RepetitiveTaskLog.count', 1 do
-            post repetitive_tasks_path, params: { repetitive_task: repetitive_task_params.merge(last_done_at:) }
+            assert_difference 'ActivityLogs::TaskCreateLog.count', 1 do
+              post repetitive_tasks_path, params: { repetitive_task: repetitive_task_params.merge(last_done_at:) }
+            end
           end
         end
         assert_redirected_to repetitive_tasks_path
@@ -79,7 +83,9 @@ class RepetitiveTasksControllerTest < ActionDispatch::IntegrationTest
     describe 'destroy' do
       it 'タスクを削除し、タスク一覧画面にリダイレクト' do
         assert_difference 'RepetitiveTask.count', -1 do
-          delete repetitive_task_path(@repetitive_task)
+          assert_difference 'ActivityLogs::TaskDeleteLog.count', 1 do
+            delete repetitive_task_path(@repetitive_task)
+          end
         end
         assert_redirected_to repetitive_tasks_path
       end

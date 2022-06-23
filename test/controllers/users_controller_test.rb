@@ -14,7 +14,9 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
         assert_difference 'owner.group.users.count', 1 do
           assert_difference 'UserGroup.count', 0 do
-            post users_path, params: user_params.merge(invitation_params)
+            assert_difference 'ActivityLogs::GroupMemberAddedLog.count', 1 do
+              post users_path, params: user_params.merge(invitation_params)
+            end
           end
         end
         assert_redirected_to repetitive_tasks_path
@@ -55,7 +57,9 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
       it 'ユーザーとグループを作成し、ログインしてタスク一覧画面にリダイレクト' do
         assert_difference 'User.count', 1 do
           assert_difference 'UserGroup.count', 1 do
-            post users_path, params: user_params
+            assert_difference 'ActivityLogs::GroupMemberAddedLog.count', 1 do
+              post users_path, params: user_params
+            end
           end
         end
         assert_redirected_to repetitive_tasks_path
