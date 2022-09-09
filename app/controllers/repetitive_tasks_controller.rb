@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 class RepetitiveTasksController < ApplicationController
-  before_action :set_repetitive_task, only: %i[edit update destroy]
-  before_action :check_own_group, only: %i[edit update destroy]
+  before_action :set_repetitive_task_and_check_own_group, only: %i[edit update destroy]
 
   def index
     @repetitive_tasks = RepetitiveTask.main_list_for_user(current_user)
@@ -46,11 +45,8 @@ class RepetitiveTasksController < ApplicationController
 
   private
 
-  def set_repetitive_task
+  def set_repetitive_task_and_check_own_group
     @repetitive_task = RepetitiveTask.find(params[:id])
-  end
-
-  def check_own_group
     redirect_to repetitive_tasks_path unless current_user.member_of?(@repetitive_task.user_group)
   end
 

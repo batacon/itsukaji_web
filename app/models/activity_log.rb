@@ -19,9 +19,9 @@ class ActivityLog < ApplicationRecord
   delegate :text, to: :loggable
 
   scope :for_notification_of_group, ->(group) { where(user_group: group).order(created_at: :desc).limit(50) }
-  scope :should_highlight_for, ->(user) { non_checked_by(user).acted_except(user) }
-  scope :non_checked_by, ->(user) { where('created_at > ?', user.last_check_activity_logs_at) }
-  scope :acted_except, ->(user) { where.not(user:) }
+  scope :should_highlight_for, ->(user) { not_checked_by(user).not_acted_by(user) }
+  scope :not_checked_by, ->(user) { where('created_at > ?', user.last_check_activity_logs_at) }
+  scope :not_acted_by, ->(user) { where.not(user:) }
 
   def should_highlight_for?(target_user)
     created_at > target_user.last_check_activity_logs_at && user_id != target_user.id
