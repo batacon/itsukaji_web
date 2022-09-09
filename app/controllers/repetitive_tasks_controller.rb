@@ -15,11 +15,7 @@ class RepetitiveTasksController < ApplicationController
     ActiveRecord::Base.transaction do
       task = RepetitiveTask.create!(repetitive_task_params)
       task.logs.create!(date: log_params[:last_done_at]) if log_params[:last_done_at].present?
-      ActivityLog.create!(
-        user_group: current_user.group,
-        user: current_user,
-        loggable: ActivityLogs::TaskCreateLog.new(repetitive_task: task)
-      )
+      ActivityLog.create_task_create_log(current_user, task)
     end
     redirect_to :repetitive_tasks
   end
@@ -33,11 +29,7 @@ class RepetitiveTasksController < ApplicationController
 
   def destroy
     ActiveRecord::Base.transaction do
-      ActivityLog.create!(
-        user_group: current_user.group,
-        user: current_user,
-        loggable: ActivityLogs::TaskDeleteLog.new(task_name: @repetitive_task.name)
-      )
+      ActivityLog.create_task_delete_log(current_user, @repetitive_task.name)
       @repetitive_task.destroy!
     end
     redirect_to :repetitive_tasks

@@ -6,11 +6,7 @@ class RepetitiveTaskLogsController < ApplicationController
 
   def create
     ActiveRecord::Base.transaction do
-      ActivityLog.create!(
-        user_group: current_user.group,
-        user: current_user,
-        loggable: ActivityLogs::TaskDoneLog.new(repetitive_task: @repetitive_task)
-      )
+      ActivityLog.create_task_done_log(current_user, @repetitive_task)
       @repetitive_task.logs.create!(date: Date.today)
     end
     respond_to(&:turbo_stream)
@@ -18,14 +14,11 @@ class RepetitiveTaskLogsController < ApplicationController
 
   def update
     ActiveRecord::Base.transaction do
-      ActivityLog.create!(
-        user_group: current_user.group,
-        user: current_user,
-        loggable: ActivityLogs::TaskLogDateChangeLog.new(
-          repetitive_task: @repetitive_task,
-          from: @repetitive_task_log.date,
-          to: log_params[:date]
-        )
+      ActivityLog.create_task_log_date_change_log(
+        current_user,
+        @repetitive_task,
+        from: @repetitive_task_log.date,
+        to: log_params[:date]
       )
       @repetitive_task_log.update!(log_params)
     end
@@ -34,11 +27,7 @@ class RepetitiveTaskLogsController < ApplicationController
 
   def destroy
     ActiveRecord::Base.transaction do
-      ActivityLog.create!(
-        user_group: current_user.group,
-        user: current_user,
-        loggable: ActivityLogs::TaskUndoneLog.new(repetitive_task: @repetitive_task)
-      )
+      ActivityLog.create_task_undone_log(current_user, @repetitive_task)
       @repetitive_task_log.destroy!
     end
     respond_to(&:turbo_stream)

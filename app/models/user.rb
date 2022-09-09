@@ -81,10 +81,6 @@ class User < ApplicationRecord
   end
 
   def create_activity_logs_for_group_member_added_log
-    ActivityLog.create!(
-      user_group: group,
-      user: self,
-      loggable: ActivityLogs::GroupMemberAddedLog.new
-    )
+    ActivityLog.create_group_member_added_log(self)
   end
 end
