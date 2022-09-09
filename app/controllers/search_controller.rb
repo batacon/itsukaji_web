@@ -2,7 +2,8 @@
 
 class SearchController < ApplicationController
   def search
-    @repetitive_tasks = RepetitiveTask.search_by_name(name_query).main_list_for_user(current_user)
+    all_repetitive_tasks ||= RepetitiveTask.main_list_for_user(current_user)
+    @repetitive_tasks = all_repetitive_tasks.search_by_name(name_query).sorted_array_by_due_date
     respond_to(&:turbo_stream)
   end
 

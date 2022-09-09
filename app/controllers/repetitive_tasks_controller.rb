@@ -4,7 +4,7 @@ class RepetitiveTasksController < ApplicationController
   before_action :set_repetitive_task_and_check_own_group, only: %i[edit update destroy]
 
   def index
-    @repetitive_tasks = RepetitiveTask.main_list_for_user(current_user)
+    @repetitive_tasks = RepetitiveTask.main_list_for_user(current_user).sorted_array_by_due_date
   end
 
   def new
